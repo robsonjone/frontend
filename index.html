@@ -1,12 +1,908 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquivo Inicial</title>
-    <link rel="stylesheet" href="./styles.css"/>
+    <title>Dashboard</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:wght@300&family=Roboto:wght@100;300;500&family=Zen+Dots&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <script src="https://cdn.es.gov.br/scripts/jquery/jquery-maskedinput/1.4.1/jquery.maskedinput-1.4.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.6/antd.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.6/antd.min.css" integrity="sha512-oj9Gb7rxUS/DmRO4hBFmw984VCy/BlgtLlCoyCaFG23aFz55dgqURNaYzZoVfgdyqVlI8W81ppg2exob2J4SRg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+<style>
+   
+    body,
+    .reset {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .sidebar {
+        display: flex;
+        padding: 24px 12px 24px 24px;
+        flex-direction: column;
+        min-width: 40px;
+        max-width: 220px;
+        width: 220px;
+        border: 0px solid #333;
+        position: relative;
+        transition: 300ms ease;
+        background-color: #233d4d;
+        box-sizing: border-box;
+    }
+
+    .sidebar.hide {
+        width: 64px;
+        padding:24px 16px;
+    }
+
+    .sidebar.hide .menu-content .sidebar-menu .sidebar-menu-item{
+        padding: 24px 16px;
+        margin:0 -16px;
+        transition: 0.75s;
+    }
+    
+    
+    .sidebar .show {
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
+        position: absolute;
+        right: -16px;
+        top: 16px;
+        border: 1px solid #f7f5f5;
+        cursor: pointer;
+    }
+
+    .sidebar .logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-grow: 0;
+        height: 32px;
+        border: 1px solid transparent;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .sidebar.hide .logo{
+        width: 64px;
+        margin:0 -10px;
+        transition: .5s;
+    }
+    .sidebar .logo span{
+        font-size: 32px;
+        color: #ccc;
+        transition: all .3s ease;
+    }
+    .sidebar.hide .logo span{
+        font-size: 44px!important;
+        color:#fe7f2d!important;
+    }
+    .sidebar.hide .logo .brand {
+        display: none;
+    }
+    .sidebar .logo .brand {
+        font-family: 'Zen Dots', sans-serif;
+        color: #fe7f2d;
+        font-size: 20px;
+        margin: 0;
+        padding-left: 16px;
+        transition: 300ms ease;
+    }
+
+    .sidebar .menu-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .sidebar .menu-content .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        padding-top: 16px;
+    }
+
+    
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item {
+        height: 40px;
+        padding: 10px;
+        color: #ccc;
+        transition: 0.1s;
+        display: flex;
+        align-items: center;
+        font-size: 13.6px;
+        font-family: 'Inter', sans-serif;
+    }
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item:not(:first-child):after {
+        content:"\e5cc";
+        font-family: 'Material Symbols Outlined';
+        margin-left: auto;
+        color: #fe7f2d;
+        font-size: 1.25rem;
+        transition: .5s;
+    }
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item:not(:first-child):hover {
+        background: #333;
+        color: #ccc;
+        cursor: pointer;
+    }
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item:not(:first-child):hover:after {
+        transform: rotate(90deg);
+    }
+
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item a {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        text-decoration: none;
+        color: #ccc;
+    }
+
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item a span {
+        width: 100%;
+        transition: .4s ease;
+    }
+
+    .sidebar.hide .menu-content .sidebar-menu .sidebar-menu-item::after,
+    .sidebar.hide .menu-content .sidebar-menu .sidebar-menu-item a span {
+        width: 0;
+        overflow: hidden;
+    }
+    .sidebar .menu-content .sidebar-menu .sidebar-menu-item i {
+        margin-right: 8px;
+    }
+    .sidebar.hide .menu-content .sidebar-menu .sidebar-menu-item i {
+        margin-right: 0;
+        font-size: 32px;
+    }
+
+    .sidebar .menu-content .sidebar-menu .submenu{
+        list-style: none;
+    }
+
+    .config {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        padding: 8px 16px;
+    }
+
+    .config .detail {
+        flex-grow: 1;
+    }
+
+    .content {
+        width: auto;
+        flex-grow: 1;
+        background: #eee;
+        padding: 0 16px 0 48px
+    }
+
+    .content-body{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+
+    .breadcrumb {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+    }
+
+    .avatar,
+    .logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-grow: 0;
+        height: 32px;
+        border: 1px solid transparent;
+        transition: 0.3s;
+
+    }
+
+    .avatar img {
+        width: 32px;
+        height: 32px;
+        border-radius: 15px;
+    }
+
+    .sidebar.hide .avatar_details {
+        display: none;
+        transition: 500ms linear;
+    }
+
+    .avatar_details {
+        padding: 0px 8px;
+        flex-grow: 1;
+        height: 32px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .avatar .user {
+        font-size: 13.6px;
+        font-weight: bold;
+        line-height: 1.25;
+        color: #ccc
+    }
+
+    .avatar .perfil {
+        font-size: 12px;
+        color: #7c7b7b;
+        font-weight: 600;
+        text-align: end;
+    }
+
+    .navbar {
+        display: grid;
+        height: 64px;
+        padding: 16px;
+        background: #104c64;
+        margin: 0 -16px 0 -48px;
+        grid-template-columns: 1fr 1fr;
+        box-sizing: border-box;
+    }
+
+    .navbar .modules{
+        display: flex;
+        align-items: center;
+        position: relative;
+        height: 64px;
+        padding:0;
+        margin:-16px;
+
+    }
+    .navbar .modules .module_item{
+        display: flex;
+        align-items: center;
+        height: inherit;
+        color:#ccc;
+        padding:0 16px;
+        font-size: 13.6px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+    }
+    .navbar .modules .module_item:hover{
+        background: #2c8aaf;
+        cursor:pointer;
+    }
+    .navbar .modules .module_item:hover > .menu-drop{
+        display: flex;
+        height: 400px;
+    }
+    
+    .navbar .modules .module_item > .menu-drop, .menu-dorp{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top:50px;
+        width: 200px;
+        height: 0px;
+        background: #233d4d;
+        z-index:1020;
+        transition: .5s;
+        padding:8px;
+        box-sizing: content-box;
+    }
+
+    .navbar .actions {
+        display: flex;
+        justify-self: flex-end;
+        width: 350px;
+        justify-content: space-between;
+        color: #fe7f2d !important;
+    }
+
+    .navbar .avatar:hover > .menu-drop{
+        border: 1px solid #ddd;
+        transition: 0.3s;
+    }
+
+    .navbar .actions span {
+        font-size: 28px;
+        font-weight: 300;
+    }
+
+    .scrolling{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: scroll;
+        height: calc(100vh - 192px);
+        scrollbar-width: thin;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    .title-page{
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        padding: 48px 0 0;
+        border-bottom: 0px solid #dbdbdb;
+        line-height: 1;
+        display: flex;
+        align-items: end;
+        color: #104c64;
+        margin-bottom: 16px;
+        font-weight: 500;
+    }
+
+    .title-page > i{
+        font-size: 20px;
+        height: 20px;
+        margin-right: 2px;
+        font-weight: 300;
+        color: #104c64;
+        line-height: 1;
+    }
+    .breadcrumb li {
+        padding: 0 12px 0 0;
+        color: #8d8d8d;
+        font-family: "Roboto", sams-serif;
+        font-size: 13.6px;
+    }
+
+    .breadcrumb li:not(:last-child) {
+        font-weight: 600;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+        content: "/";
+        padding-left: 12px;
+    }
+
+    .ui.form.w60{
+        width: 60vw;
+        padding: 24px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .pt2_5{
+        padding-top:2.5rem !important;
+    }
+    .pt1_5{
+        padding-top: 24px !important;
+    }
+
+    @media screen and (max-width: 1919px){
+        .title-page{
+            font-size: 24px;
+
+        }
+        .title-page i{
+            height: 18px;
+            font-size: inherit;
+        }
+    }
+    .autocomplete-suggestions {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            width: 100%;
+            background-color: white;
+            z-index: 100;
+        }
+</style>
+<script>
+    function hideSidebar() {
+        var sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("hide");
+
+    }
+</script>
+
 <body>
-    <div class="navbar">Arquivo start</div>
+    <div class="main">
+        <div class="sidebar">
+            <!-- <button onclick = "hideSidebar()" class="show">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios_new
+                    </span>
+                </button> -->
+            <div class="logo">
+                <!-- <img src="./stacks.png"/> -->
+                <span class="material-symbols-outlined"
+                    onclick="hideSidebar()">stacks</span>
+                <p class="brand">Vertice</p>
+                <!-- <div class="avatar_details">
+                    </div> -->
+            </div>
+            <!-- <div class="avatar" style="margin-top: 32px;">
+                    <input type="text" style="flex-grow: 1;border-radius:2px">
+                </div> -->
+            <div class="menu-content">
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">MENU</li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">home</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                   <!--  <ul class="submenu">
+                        <li>Dados Pessoais</li>
+                        <li>Contratos</li>
+                    </ul> -->
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">lab_profile</i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">monitoring</i>
+                            <span>Monitor</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">Database</i>
+                            <span>Data</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">Schema</i>
+                            <span>Schema</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">finance</i>
+                            <span>Finance</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">shield_lock</i>
+                            <span>Security</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#">
+                            <i class="material-symbols-outlined">badge</i>
+                            <span>Contract</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-menu">
+                    <div class="sidebar-menu-item">
+                        <i class="material-symbols-outlined">finance</i>
+                        <span>Finance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="config">
+                <img src="./settings-gears.png" / width="24">
+                <div class="detail">
+                    Configurações
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <nav class="navbar">
+                <div class="modules">
+                    <div class="module_item">
+                       <!--  <span class="material-symbols-outlined">
+                            person_apron
+                        </span> -->
+                        Recursos Humanos
+                       <!--  <div class="menu-drop">
+                            <div class="ui middle aligned divided list">
+                                <div class="item">
+                                  <img class="ui avatar image" src="https://i.pravatar.cc/40">
+                                  <div class="content">
+                                    <a class="header">Daniel Louise</a>
+                                  </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                   
+                    <div class="module_item">
+                       <!--  <span class="material-symbols-outlined">
+                            calculate
+                        </span> -->
+                        Folha de Pagamento
+                    </div>
+                    <div class="module_item">
+                       <!--  <span class="material-symbols-outlined">
+                            function
+                        </span> -->
+                        Contabilidade
+                    </div>
+                    <div class="module_item">
+                       <!--  <span class="material-symbols-outlined">
+                            share_windows
+                        </span> -->
+                        eSocial
+                    </div>
+                </div>
+                <div class="actions">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="material-symbols-outlined">widgets</span>
+                    <div class="avatar">
+                        <!-- <span class="material-symbols-outlined" style="font-size: 32px;color:#ccc;">stacks</span> -->
+                        <div class="avatar_details">
+                            <p class="reset user">Robson Jone Gomes</p>
+                            <p class="reset perfil">Admin</p>
+                        </div>
+                        <img src="https://i.pravatar.cc/40" />
+                    </div>
+                </div>
+    
+            </nav>
+            <!-- <ul class="breadcrumb">
+                <li>Home</li>
+                <li>Pessoa</li>
+                <li>Contratos</li>
+            </ul> -->
+            <div class="title-page">
+                <i class="material-symbols-outlined">
+                    fingerprint 
+                </i>
+                Informação de Pessoa
+            </div>
+            <div class="content-body">
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="first">Pessoais</a>
+                    <a class="item " data-tab="second">Endereço</a>
+                    <a class="item" data-tab="third">Contato</a>
+                </div>
+                <div class="ui bottom attached tab segment active scrolling" data-tab="first">
+                    <form class="ui small form w60">
+                        <div class="ui massive icon input">
+                            <input id="cpf" type="text" placeholder="Search massive...">
+                            <i class="search icon"></i>
+                            <p id="resultado"></p>
+                        </div>
+                        <div class="fields">
+                            <div class="ten wide field">
+                                <label>Nome</label>
+                                <input type="text" name="nome" placeholder="First Name">
+                            </div>
+                            <div class="six wide field">
+                                <label>Nome Social</label>
+                                <input type="text" name="nomesocial" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="small">
+                            <div class="fields">
+                                <div class="eight wide field small">
+                                    <label >Pai</label>
+                                    <input name = "nomepai" class="" type="text" />
+                                </div>
+                                <div class="eight wide field">
+                                    <label >Mãe</label>
+                                    <input name = "nomemae" class="" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fields">
+                            <div class="three wide field">
+                                <label htmlFor="email">Gênero</label>
+                                <select name = "genero" >
+                                    <option value="">Selecionar</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                </select>
+                            </div>
+                            <div class="three wide field">
+                                <label htmlFor="email">Estado Civil</label>
+                                <select name = "estadocivil" >
+                                    <option value="">Selecionar</option>
+                                    <option value="1">Solteiro</option>
+                                    <option value="2">Casado</option>
+                                    <option value="3">Divorciado</option>
+                                    <option value="4">Separado</option>
+                                    <option value="5">Viúvo</option>
+                                </select>
+                            </div>
+                            <div class="three wide field">
+                                <label htmlFor="Raça">Raça</label>
+                                <select name = "raca" >
+                                    <option value="">Selecionar</option>
+                                    <option value = "1">Branca</option>
+                                    <option value = "2">Preta</option>
+                                    <option value = "3">Parda</option>
+                                    <option value = "4">Amarela</option>
+                                    <option value = "5">Indígena</option>
+                                    <option value = "6">Não informado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fields">
+                            <div class="three wide field">
+                                <label >Data Nascimento</label>
+                                <input name = "dtnascimento" class="" type="date" value = '1985-08-14'/>
+                            </div>
+                            <div class="three wide field">
+                                <label htmlFor="email">País Nascimento</label>
+                                <select name = "paisemissor" >
+                                    <option value="">Selecionar</option>
+                                    <option value="BR">Brasil</option>
+                                    <option value="RU">Rússia</option>
+                                    <option value="US">Estados Unidos</option>
+                                    <option value="CA">Canadá</option>
+                                    <option value="MX">México</option>
+                                </select>
+                            </div>
+                            <div class="two wide field">
+                                <label htmlFor="ufEmissor">UF</label>
+                                <input name = "ufemissor" type="text" />
+                            </div>
+                            <div class="five wide field">
+                                <label htmlFor="ufEmissor">Cidade</label>
+                                <input type="text" id="cidadeNascimento" name="cidadeNascimento"  type="text" />
+                                <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+                            </div>
+                            <div class="three wide field">
+                                <label >Data Óbito</label>
+                                <input name = "dtobito" class="" type="date" />
+                            </div>                            
+                        </div>
+                        <div class="fields">
+                            <div class="three wide field">
+                                <label htmlFor="dtNascimento">CPF</label>
+                                <input name = "cpf" type="text" />
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="ui horizontal divider">
+                        Histórco de Alterações
+                    </div>
+                    <br>
+                    <table class="ui very compact table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Approved</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Approved</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Approved</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Approved</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        <tr>
+                            <td>Jamie</td>
+                            <td>Approved</td>
+                            <td>Requires call</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="second">
+                    <form class="ui small form">
+                        <div class="fields">
+                            <div class="three wide field">
+                                <label htmlFor="dtNascimento">RG</label>
+                                <input name = "dtnascimento" type="text" />
+                            </div>
+                            <div class="three wide field">
+                                <label htmlFor="email">País Emissor</label>
+                                <select name = "paisemissor" >
+                                    <option value="">Selecionar</option>
+                                    <option value="BR">Brasil</option>
+                                    <option value="RU">Rússia</option>
+                                    <option value="US">Estados Unidos</option>
+                                    <option value="CA">Canadá</option>
+                                    <option value="MX">México</option>
+                                </select>
+                            </div>
+                            <div class="four wide field">
+                                <label htmlFor="ufEmissor">UF</label>
+                                <input name = "ufemissor" type="text" />
+                            </div>
+                            <div class="three wide field">
+                                <label htmlFor="dtEmissaoRg">Data Emissão</label>
+                                <input name = "dtemissaorg" type="date" />
+                            </div>
+                        </div>
+                    </form>    
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="third">
+                    Third
+                </div>                            
+            </div>                            
+        </div>
+    </div>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Informe o CPF
+        </div>
+        <div class="image content">
+          <!-- <div class="image">
+            An image can appear on left or an icon
+          </div> -->
+          <div class="description">
+            <form class="ui small form">
+                <div class="ui massive icon input">
+                    <input id="cpfc" type="text" placeholder="Search massive...">
+                    <i class="search icon"></i>
+                </div>
+            </form>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui button">Cancel</div>
+          <div class="ui button">OK</div>
+        </div>
+      </div>
 </body>
+<script>
+    $('.tabular.menu .item').tab();
+    $('.modal')
+        .modal('setting', 'closable', false)
+        .modal('show')
+    ;
+    jQuery(function($){
+        $("#cpf").mask("999.999.999-99");
+    }
+    );
+    $('#cpf').on('blur', function() {
+        var cpf = $(this).val();
+        if (validarCPF(cpf)) {
+            $('#resultado').text('CPF válido').css('color', 'green');
+        } else {
+            $('#resultado').text('CPF inválido').css('color', 'red');
+        }
+    });
+    // Função para validar o CPF
+    function validarCPF(cpf) {
+            // Remover caracteres não numéricos (como pontos e traços)
+            cpf = cpf.replace(/[^\d]+/g, '');
+
+            // Verificar se o CPF tem 11 dígitos
+            if (cpf.length !== 11 || /^[0-9]{11}$/.test(cpf) === false) {
+                return false;
+            }
+
+            // Verificar CPFs com todos os números iguais (ex: 111.111.111-11)
+            if (/^(\d)\1{10}$/.test(cpf)) {
+                return false;
+            }
+
+            // Validar o primeiro dígito verificador
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) {
+                return false;
+            }
+
+            // Validar o segundo dígito verificador
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(10))) {
+                return false;
+            }
+
+            return true;
+        }
+
+</script>
+<script>
+    const cidades = [
+        "São Paulo", "Rio de Janeiro", "Salvador", "Brasília", "Fortaleza", 
+        "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre",
+        "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís"
+    ];
+
+    const input = document.getElementById('cidadeNascimento');
+    const suggestionList = document.getElementById('autocomplete-list');
+
+    input.addEventListener('input', function() {
+        const query = input.value.toLowerCase();
+        suggestionList.innerHTML = ''; // Limpa as sugestões
+
+        if (query) {
+            const filteredCidades = cidades.filter(cidade => cidade.toLowerCase().includes(query));
+            
+            filteredCidades.forEach(cidade => {
+                const div = document.createElement('div');
+                div.textContent = cidade;
+                div.addEventListener('click', function() {
+                    input.value = cidade;  // Preenche o campo com a cidade selecionada
+                    suggestionList.innerHTML = '';  // Fecha a lista de sugestões
+                });
+                suggestionList.appendChild(div);
+            });
+        }
+    });
+
+    // Fechar a lista de sugestões se clicar fora do campo
+    document.addEventListener('click', function(e) {
+        if (!input.contains(e.target)) {
+            suggestionList.innerHTML = '';
+        }
+    });
+</script>
 </html>
