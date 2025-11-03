@@ -1,5 +1,5 @@
 :root{
-    --grid-columns-count: 20;
+    --grid-columns-count: 24;
     --grid-column-unit: calc(100% / var(--grid-columns-count));
     --grid-column-width: var(--grid-column-unit) * 1;
     --side-width:240px;
@@ -38,7 +38,7 @@
 }
 .navbar{
     padding: 1rem;
-    background: #2f7db6;
+    background: #7427b8;
 }
 
 .navbar > .title{
@@ -94,6 +94,10 @@
 .cel-18{ width: calc(var(--grid-column-unit) * 18);}
 .cel-19{ width: calc(var(--grid-column-unit) * 19);}
 .cel-20{ width: calc(var(--grid-column-unit) * 20);}
+.cel-21{ width: calc(var(--grid-column-unit) * 21);}
+.cel-22{ width: calc(var(--grid-column-unit) * 22);}
+.cel-23{ width: calc(var(--grid-column-unit) * 23);}
+.cel-24{ width: calc(var(--grid-column-unit) * 24);}
 
 .component{
     min-height: 20px;
@@ -166,6 +170,7 @@
 }
 
 .profile{
+    padding:1rem;
     position: relative;
     border:1px solid #ccc;
     border-radius: 0px;
@@ -174,7 +179,16 @@
     flex-direction: column;
     justify-content: center;
 }
+.profile img{
+    border-radius: 50%;
+    margin-bottom:1.25rem;
+}
 
+.profile .profile-data{
+    display: flex;
+    flex-direction: column;
+    padding: .25rem 1rem;
+}
 .profile .profile-banner{
     background: hsla(224, 93%, 36%, 1);
     background: -moz-linear-gradient(90deg, hsla(224, 93%, 36%, 1) 5%, hsla(274, 92%, 49%, 1) 66%);
@@ -200,9 +214,6 @@
     border-radius: 50%;
     align-self: flex-end;
     border:4px solid #fafafa;
-}
-.profile img{
-    border-radius: 50%;
 }
 
 .profile .profile-header .profile-name{

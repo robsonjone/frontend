@@ -30,8 +30,8 @@
                         Profile
                     </div>
                     <div class="panel-body flex-center">
-                        <div class="row cel-12 xs">
-                            <div class="toolbar cel-20">
+                        <div class="row cel-16 xs">
+                            <div class="toolbar cel-24">
                                 <div class="tool-title">Profile</div>
                                 <div class="tool-action">
                                     <div class="item-tool" onClick="send()"><i class="icofont icofont-save"></i></div>
@@ -39,35 +39,36 @@
                                     <div class="item-tool"><i class="icofont icofont-edit"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-spreadsheet"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-print"></i></div>
-                                    <div class="item-tool"><i class="icofont icofont-ban"></i></div>
-                                    
-                                                                    </div>
+                                    <div class="item-tool"><i class="icofont icofont-ban"></i></div>                                 
+                                </div>
                             </div>
                             <div class="profile cel-4 xs">
                                 <img src="https://randomuser.me/api/portraits/men/35.jpg" />
-                                <p class="profile-name">Robson Jone Gomes</p>
-                                <p class="profile-info">Cargo</p>
-                                <p class="profile-info">ID: 1138</p>
-                                <p class="profile-info">Fone:(41)3200-6546</p>
+                                <div class="profile-data">
+                                    <p class="profile-name">Robson Jone Gomes</p>
+                                    <p class="profile-info">Cargo</p>
+                                    <p class="profile-info">ID: 1138</p>
+                                    <p class="profile-info">Fone:(41)3200-6546</p>
+                                </div>
                             </div>
-                            <form id="form_pessoa" class="cel-16 xs">
+                            <form id="form_pessoa" class="cel-20 xs">
                                 <fieldset>
                                     <legend class="none">Dados Pessoais</legend>
                                 </fieldset>
                                     <div class="row input-lg">
-                                        <div class="item item2 cel-20 xs">
-                                            <div class="component cel-14 xs">
+                                        <div class="item item2 cel-24 xs">
+                                            <div class="component cel-16 xs">
                                                 <label for="nome">Nome</label>
                                                 <input type="text" id=nome" name="nome" required />
                                             </div>
-                                            <div class="component cel-6 xs">
+                                            <div class="component cel-8 xs">
                                                 <label>Nome Social</label>
                                                 <input type="text" name="nome_social" required/>
                                             </div>
                                         </div>
                                     </div>
                 
-                                    <div class="item item2 cel-20">
+                                    <div class="item item2 cel-24">
                                         <div class="component cel-12">
                                             <label>Nome Pai</label>
                                             <input type="text" name=""/>
@@ -79,7 +80,7 @@
                                         
                                     </div>
                                     
-                                    <div class="item item2 cel-20">  
+                                    <div class="item item2 cel-24">  
                                         <div class="component cel-4">
                                             <label>Data Nascimento</label>
                                             <input type="date" name="dtnascto" required/>
@@ -133,15 +134,15 @@
                                         </div-->
                                         
                                     </div>
-                                    <div class="item item2 cel-20">  
-                                        <div class="component cel-4">
+                                    <div class="item item2 cel-24">  
+                                        <div class="component cel-6">
                                             <label>País Nascimento</label>
                                             <select name="id_pais_nascimento" required/>
                                             <option>Selecione</option>
                                                 <option value = 105>Brasil</option>
                                             </select>
                                         </div>
-                                        <div class="component cel-4">
+                                        <div class="component cel-6">
                                             <label>UF Nascimento</label>
                                             <select name="uf_nascimento" required/>
                                                 <option>Selecione</option>
@@ -174,7 +175,7 @@
                                                 <option value = "TO">Tocantins (TO)</option>
                                             </select>
                                         </div>
-                                        <div class="component cel-4">
+                                        <div class="component cel-6">
                                             <label>Cidade Nascimento</label>
                                             <select name="cidade_nascimento" required/>
                                             <option>Selecione</option>
@@ -183,7 +184,7 @@
                                                 <option>Viúvo</option>
                                             </select>
                                         </div>
-                                        <div class="component cel-4">
+                                        <div class="component cel-6">
                                             <label>País Nacionalidade</label>
                                             <select name="id_pais_nacionalidade" required/>
                                             <option>Selecione</option>
@@ -193,7 +194,9 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="item item2 cel-20">
+                                    <br/>
+                                    <br/>
+                                    <div class="item item2 cel-24">
                                         <div class="component cel-4">
                                             <label>Data Atualização</label>
                                             <input type="datetime-local" value = "09/09/2025 09:38"id="ultimaAtualizacao" placeholder="dd/mm/yyyy hh24:mi:ss" name="data_atualizacao" readonly/>
@@ -216,8 +219,8 @@
                                
                             </form>
                         </div>
-                        <div class="row flex-column">
-                            <div class="card-info cel-20 mt-1">
+                        <div class="row flex-column cel-16">
+                            <div class="card-info cel-24 mt-1">
                                 <div class="title-info">Histórico de Alterações</div>
                                 <table class="table">
                                     <thead>
