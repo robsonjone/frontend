@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 :root{
     --grid-columns-count: 24;
     --grid-column-unit: calc(100% / var(--grid-columns-count));
@@ -38,7 +39,7 @@
 }
 .navbar{
     padding: 1rem;
-    background: #acd445;
+    background: #2f7db6;
 }
 
 .navbar > .title{
@@ -129,11 +130,17 @@
     background:#2f7db6;*/
     font-weight: 500;
 }
+.panel .panel-title.mini{
+    font-size:1rem;
+    padding:.25rem;
+    color:#777;
+}
+.panel .panel-title.mini > i{font-size: 1rem !important;}
 
 .panel .panel-body{
     display: flex;
     flex-direction: column;
-    padding:2.5rem 1.5rem;
+    padding:1rem .125rem;
 }
 .panel .panel-footer{
     display:flex;
@@ -170,7 +177,6 @@
 }
 
 .profile{
-    padding:1rem;
     position: relative;
     border:1px solid #ccc;
     border-radius: 0px;
@@ -178,6 +184,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 1rem;
 }
 .profile img{
     border-radius: 50%;
@@ -187,7 +194,9 @@
 .profile .profile-data{
     display: flex;
     flex-direction: column;
-    padding: .25rem 1rem;
+    padding: .25rem 0;
+    font-size: .80rem;
+    line-height: 1.5;
 }
 .profile .profile-banner{
     background: hsla(224, 93%, 36%, 1);
@@ -220,11 +229,14 @@
     font-weight: 600;
     font-size: 1.5rem;
     color:#777;
+    
 }
 
 .profile .profile-name{
     font-size:1rem;
     color:#333;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
 }
 
 form{
@@ -384,6 +396,8 @@ button,input[type="submit"]{
     font-weight: 500;
     background:#2f7db6;
     color:#fefefe;
+    position: sticky;
+    top:0;
 }
 @media print{
     @page {

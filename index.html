@@ -15,6 +15,24 @@
             
         }
 
+        async function get(){
+            let data;
+            const response = await fetch("http://localhost:81/pessoa/show/0", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "Authorization",
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjIxOTQyNTYsImV4cCI6MTc2MjE5Nzg1Niwic3ViIjoxLCJuYW1lIjoiUm9ic29uIEpvbmUifQ.ygKTPrFx2y2yzzI2wdUiT5XzgYwBfcbYxSq2eSsquas",
+                }
+            }
+            ).then(response => response.json())
+            .then((json) => data = json[0]);
+
+            console.log(data.id);
+
+            const inputNome = document.querySelector('input[name=\'nome\']');
+            inputNome.value = data.nome;
+        }
+
     </script>
 </head>
 <body>
@@ -23,7 +41,7 @@
             <div class="sidebar"></div>
             <div class="container">
                 <div class="navbar">
-                    <div class="title">Gestão de Pessoas</div> 
+                    <div class="title">Gestão de Pessoa</div> 
                 </div>
                 <div class="panel">
                     <div class="panel-title">
@@ -36,7 +54,7 @@
                                 <div class="tool-action">
                                     <div class="item-tool" onClick="send()"><i class="icofont icofont-save"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-file-file"></i></div>
-                                    <div class="item-tool"><i class="icofont icofont-edit"></i></div>
+                                    <div class="item-tool" onClick="get()"><i class="icofont icofont-edit"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-spreadsheet"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-print"></i></div>
                                     <div class="item-tool"><i class="icofont icofont-ban"></i></div>                                 
@@ -46,9 +64,9 @@
                                 <img src="https://randomuser.me/api/portraits/men/35.jpg" />
                                 <div class="profile-data">
                                     <p class="profile-name">Robson Jone Gomes</p>
-                                    <p class="profile-info">Cargo</p>
-                                    <p class="profile-info">ID: 1138</p>
-                                    <p class="profile-info">Fone:(41)3200-6546</p>
+                                    <p class="profile-info">Analista Desenvolvedor</p>
+                                    <p class="profile-info">ID: 1138</p>                                    
+                                    <p class="profile-info">(41) 3200-6546</p>
                                 </div>
                             </div>
                             <form id="form_pessoa" class="cel-20 xs">
@@ -220,62 +238,66 @@
                             </form>
                         </div>
                         <div class="row flex-column cel-16">
-                            <div class="card-info cel-24 mt-1">
-                                <div class="title-info">Histórico de Alterações</div>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Data</th>
-                                            <th>Operação</th>
-                                            <th>Usuário</th>
-                                            <th>Nome</th>
-                                            <th>Nome Pai</th>
-                                            <th>Nome Mãe</th>
-                                            <th>Nascimento</th>
-                                            <th>Óbito</th>
-                                            <th>Sexo</th>
-                                            <th>Raça</th>
-                                            <th>Esado Civil</th>
-                                            <th>País / UF / Cidade Nascimento</th>
-                                            <th>Nacionalidade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>04/09/2025 11:53:33</td>
-                                            <td>ALT</td>
-                                            <td>MASTER</td>
-                                            <td>ROBSON JONE GOMES</td>
-                                            <td>NÃO DECLARADO</td>
-                                            <td>SINDIA TEODORO GOMES</td>
-                                            <td>14/08/1985</td>
-                                            <td></td>
-                                            <td>Masculino</td>
-                                            <td>Branca</td>
-                                            <td>Casado</td>
-                                            <td>Brasil/PR/Umuarama</td>
-                                            <td>Brasil</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>01/09/2025 08:21:12</td>
-                                            <td>INS</td>
-                                            <td>MASTER</td>
-                                            <td>ROBSON JONE GOMES</td>
-                                            <td>NÃO DECLARADO</td>
-                                            <td>SINDIA TEODORO GOMES</td>
-                                            <td>14/08/1985</td>
-                                            <td></td>
-                                            <td>Masculino</td>
-                                            <td>Branca</td>
-                                            <td>Solteiro</td>
-                                            <td>Brasil/PR/Umuarama</td>
-                                            <td>Brasil</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="panel cel-24 mt-1">
+                                <div class="panel-title mini">
+                                    <i class="icofont icofont-table"></i>
+                                    Histórico de Alterações</div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Data</th>
+                                                <th>Operação</th>
+                                                <th>Usuário</th>
+                                                <th>Nome</th>
+                                                <th>Nome Pai</th>
+                                                <th>Nome Mãe</th>
+                                                <th>Nascimento</th>
+                                                <th>Óbito</th>
+                                                <th>Sexo</th>
+                                                <th>Raça</th>
+                                                <th>Esado Civil</th>
+                                                <th>País / UF / Cidade Nascimento</th>
+                                                <th>Nacionalidade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>04/09/2025 11:53:33</td>
+                                                <td>ALT</td>
+                                                <td>MASTER</td>
+                                                <td>ROBSON JONE GOMES</td>
+                                                <td>NÃO DECLARADO</td>
+                                                <td>SINDIA TEODORO GOMES</td>
+                                                <td>14/08/1985</td>
+                                                <td></td>
+                                                <td>Masculino</td>
+                                                <td>Branca</td>
+                                                <td>Casado</td>
+                                                <td>Brasil/PR/Umuarama</td>
+                                                <td>Brasil</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>01/09/2025 08:21:12</td>
+                                                <td>INS</td>
+                                                <td>MASTER</td>
+                                                <td>ROBSON JONE GOMES</td>
+                                                <td>NÃO DECLARADO</td>
+                                                <td>SINDIA TEODORO GOMES</td>
+                                                <td>14/08/1985</td>
+                                                <td></td>
+                                                <td>Masculino</td>
+                                                <td>Branca</td>
+                                                <td>Solteiro</td>
+                                                <td>Brasil/PR/Umuarama</td>
+                                                <td>Brasil</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div class="cel-6">
@@ -287,7 +309,7 @@
                     </div>
                 </div>
 
-                <div class="panel">
+                <div class="panel" style="display: none;">
                     <div class="panel-title">
                         Profile
                     </div>
