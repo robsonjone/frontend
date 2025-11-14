@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
+    <title>Report</title>
+    <!-link rel="stylesheet" href="./assets/css/iconfon/icofont.css" -->
+    <link rel="stylesheet" href="./styles.css" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <div class="panel" ">
+        <div class="panel-title">
+            Profile
+        </div>
+        <div class="panel-body row flex-center">
+            <div class="tools">
+                <div class="pallete">
+                    <div class="pallete-title">
+                        <i class="material-symbols-outlined">database_search</i>
+                        queryEditors
+                    </div>        
+                    <div class="fieldFilter">Filtro</div>                                    
+                    <!--ul class="datalist">
+                        <li class="table">Table 1</li>
+                        <li class="itemsDataList"><input type = "checkbox" name="id" /> Field</li>
+                    </ul>
+                    
+                    <ul class="datalist">
+                        <li class="table">Table 2</li>
+                        <li class="itemsDataList"><input type = "checkbox" name="id" /> Field</li>
+                    </ul>
+
+                    <ul class="datalist">
+                       
+                        <li class="table" rel = "pessoa">Pessoa
+                            <div class="itemsDataList">
+                                <div class="row filter fieldFilter">
+                                    <div class="cel-6">
+                                        id
+                                    </div>
+                                    <div class="cel-6">
+                                        <select>
+                                            <option value="=">Igual</option>
+                                            <option value="!=">Diferente</option>
+                                            <option value=">">Maior</option>
+                                            <option value=">=">Maior ou Igual</option>
+                                            <option value="<">Menor</option>
+                                            <option value="<=">Menor ou Igual</option>
+                                            <option value="like">Contém</option>
+                                        </select>
+                                    </div>
+                                    <div class="cel-6"><input type="text"/></div>
+                                </div>
+
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="id" />Id</div>
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="nome" />nome</div>
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="data_nasc" />data_nasc</div>
+                                <div class="addField">
+                                    <span class="material-symbols-outlined">move_item</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="table" rel = "endereco">
+                            Endereco
+                            <div class="itemsDataList">
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="id" />Id</div>
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="Rua" />Rua</div>
+                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="CEP" />CEP</div>
+                                <div class="addField">
+                                    <span class="material-symbols-outlined">move_item</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="table">Cidade</li>
+                        <li class="table">País</li>
+                    </ul-->
+                </div>
+            </div>
+        
+            <div class="content">
+                <nav class="navtab">
+                    <nav class="nav_items">
+                        <div class="nav_link " target = "tabQueryEditor">Query</div>
+                        <div class="nav_link active" target = "tabFilterQueryEditor">Filter</div>
+                    </nav>
+                </nav>
+                <div class="nav_content">
+                    <div class="nav_content_item " id = "tabQueryEditor">
+                        <div id="queryEditor" class="queryEditor">
+                            <div class="row selectFields cel-13">
+                                <label class="cel-6">Name</label>
+                                <label class="cel-8">Alias</label>
+                                <label class="cel-8">Function</label>                        
+                                <label class="cel-2">Actions/</label>                        
+                            </div>
+                        </div>
+                        <div class="row" style="justify-content: space-between;">
+                            <div class="btn primary">
+                                <span class="material-symbols-outlined" onclick="createSQL()">slideshow</span>
+                            </div>
+                            <i class="material-symbols-outlined copyToClipboard">content_copy</i>
+                        </div>
+                        
+                        <div class="scriptOutput"></div>
+                    </div>
+                    <div class="nav_content_item show" id = "tabFilterQueryEditor">
+                        <div id="filterQueryEditor" class="queryEditor">
+                            <div class="row selectFields cel-24" style="border:1px solid #ccc">
+                                <label class="cel-4">pessoa.nome</label>
+                                <div class="cel-4">
+                                    <select name="comparador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="=">Igual</option>
+                                        <option value="<>">Diferente</option>
+                                        <option value=">">Maior que</option>
+                                        <option value=">=">Maior ou Igual</option>
+                                        <option value="<">Menor que</option>
+                                        <option value="<=">Menor ou Igual</option>
+                                        <option value="like %{}">Começa com</option>
+                                        <option value="like {}%">Termina com</option>
+                                        <option value="like%{}%">Contém</option>
+                                    </select>
+                                </div>
+                                <div class="cel-6flex-center">
+                                    <input class="valor" name = " valor" >
+                                </div>
+                                <div class="cel-4">
+                                    <select name="operador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="and ">E</option>
+                                        <option value="or ">ou</option>
+                                    </select>
+                                </div>
+                                <div class="cel-2 actions">
+                                    <span class="material-symbols-outlined">close_small</span>
+                                </div>
+                            </div>
+                            <div class="row selectFields cel-24" style="border:1px solid #ccc">
+                                <label class="cel-4">pessoa.dtnascto</label>
+                                <div class="cel-4">
+                                    <select name="comparador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="=">Igual</option>
+                                        <option value="<>">Diferente</option>
+                                        <option value=">">Maior que</option>
+                                        <option value=">=">Maior ou Igual</option>
+                                        <option value="<">Menor que</option>
+                                        <option value="<=">Menor ou Igual</option>
+                                        <option value="like %{}">Começa com</option>
+                                        <option value="like {}%">Termina com</option>
+                                        <option value="like%{}%">Contém</option>
+                                    </select>
+                                </div>
+                                <div class="cel-6flex-center">
+                                    <input class="valor" name = " valor" >
+                                </div>
+                                <div class="cel-4">
+                                    <select name="operador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="and ">E</option>
+                                        <option value="or ">ou</option>
+                                    </select>
+                                </div>
+                                <div class="cel-2 actions">
+                                    <span class="material-symbols-outlined">close_small</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        const allTables={
+            pessoa:{
+                id:"number",
+                nome:"varchar",
+                nome_pai:"varchar",
+                nome_mae:"varchar",
+                dtnascto:"date",
+                id_usuario:"number",
+                pk:"id",
+                fk:[{table:"usuario",field:"id_usuario"}]
+            },
+            endereco:{
+                id:"number",
+                id_pessoa:"number",
+                tplograd:"varchar",
+                dsclograd:"varchar",
+                nrlograd:"varchar",
+                bairro:"varchar",
+                cep:"varchar",
+                id_usuario:"number",
+                pk:"id",
+                fk:[{table:"pessoa",field:"id_pessoa"},{table:"usuario",field:"id_usuario"}]
+            },
+            usuario :{
+                id:"number",
+                id_pessoa:"number",
+                login:"varchar",
+                email:"varchar",
+                pk:"id",
+                fk:[{table:"pessoa",field:"id_pessoa"}]
+            }
+        }
+
+        createTableTree();
+
+        let elementeSelected = null;
+        let elementDraged = null;
+
+        const tableFields = Array.from(document.querySelectorAll('.datalist > .itemsDataList:not(.table)'));        
+        const fieldFilter = document.querySelector('.fieldFilter');       
+
+        tableFields.map((field)=>{
+            field.addEventListener('dragstart', (event) => {
+                console.log("Text id:",field.innerText.split("\n")," Class:",field.classList)
+                let text = ""
+                let txt = field.innerText.split("\n")
+                if(txt.length > 1){
+                    text = " * "
+                }else
+                    text = txt[0]
+
+                event.dataTransfer.setData('text/html', event.target.nextElementSibling);
+               /* fieldFilter.firstChild.innerText = event.target.innerText;
+                console.log("After: ",fieldFilter.firstChild.innerText);
+                elementDraged = fieldFilter.cloneNode(true);*/
+                
+                //addFieldElement
+                elementDraged = addFieldElement(text)
+                elementDraged.firstChild.nextSibling.innerText = event.target.innerText;
+                console.log("Dragging Not Table: ",elementDraged);
+            });
+        });
+
+        const tableAllFields = Array.from(document.querySelectorAll('.datalist > .itemsDataList.table'));        
+        tableAllFields.map((field)=>{
+
+            field.addEventListener('dragstart', (event) => {               
+
+                event.dataTransfer.setData('text/html', event.target.nextElementSibling);
+               /* fieldFilter.firstChild.innerText = event.target.innerText;
+                console.log("After: ",fieldFilter.firstChild.innerText);
+                elementDraged = fieldFilter.cloneNode(true);*/
+                
+                //addFieldElement
+                elementDraged = addAllFieldsTable(event)
+                //elementDraged.firstChild.nextSibling.innerText = event.target.innerText;
+                console.log("Dragging table: ",elementDraged);
+            });
+        });
+       
+        const queryEditor = Array.from(document.querySelectorAll('#queryEditor,#filterQueryEditor'));
+        console.log("queryEditor:",queryEditor);
+        queryEditor.map((qe)=>{
+            qe.addEventListener('dragover', (event) => {
+                event.preventDefault(); // Allow drop
+            });
+
+            qe.addEventListener('dragenter', (event) => {
+                event.preventDefault(); // Allow drop
+                // Optional: Add visual feedback for the drop zone
+                qe.classList.add('highlight');
+            });
+            qe.addEventListener('dragleave', () => {
+                // Optional: Remove visual feedback
+                qe.classList.remove('highlight');
+            });
+
+            qe.addEventListener('drop', (event) => {
+                event.preventDefault(); // Prevent default drop behavior
+                const data = event.dataTransfer.getData('text/html');
+
+                console.log(event.dataTransfer);
+                //const draggedElement = document.getElementById(data);
+                //if (draggedElement) {
+                if(elementDraged){
+                    //qe.appendChild(draggedElement); // Move the element
+                    event.target.appendChild(elementDraged);
+                }
+                qe.classList.remove('highlight'); // Remove visual feedback
+            });
+        });
+        
+        const copyToClipboard = document.querySelector('.copyToClipboard');
+        
+        copyToClipboard.addEventListener("click",() => copyTextToClipboard());
+        
+        const sql = {
+            table:"",
+            fields:"",
+            filter:""
+        }
+        
+        const fields=[];
+        const tables=[];
+
+        const addfield = Array.from(document.querySelectorAll('.addField'));
+
+        addfield.map((add)=>{
+            add.addEventListener('click',function(){
+                //const fieldsSelected = Array.from(document.querySelectorAll(".itemsDataList > input[type='checkbox']:checked"));
+                //console.log(fieldsSelected[0].parentElement);
+                let table = add.parentElement.parentElement;
+                //console.log("table: ",table);
+
+                let tableName = table.attributes.rel.value;
+                //tables.push(tableName);
+                //console.log("Table:", table.attributes.rel.value);
+
+                const fieldsSelected = Array.from(table.querySelectorAll(".itemsDataList > input[type='checkbox']:checked"))
+                console.log(fieldsSelected)
+                /*const fieldsSelected = Array.from(table.childNodes).filter((item) =>{
+                    console.log("Class:"+item.className);
+                    return item.className !== "table" && item.firstChild.attributes["checked"] === true
+                });*/
+    
+                fieldsSelected.map((field)=>{
+                    fields.push(field.name);
+                    tables.push(tableName);
+                    queryEditor[0].appendChild(addFieldElement(tableName+"."+field.name));
+                })
+    
+                sql.fields = fields;
+                sql.table = [...new Set(tables)];
+                console.log(sql);
+                
+                let query = "select "+sql.fields.join(",");
+                query+= " from "+sql.table.join(',')
+                console.log(query)
+                
+    
+    
+            });
+
+        })
+
+        function addAllFieldsTable(e){
+            console.log(e.target.parentNode)
+            let newElement = document.createDocumentFragment()
+            Array.from(e.target.parentNode.querySelectorAll(".itemsDataList:not(.table)")).map((field)=>{
+                newElement.appendChild(addFieldElement(field.innerText))
+            })
+
+            return newElement
+        }
+
+        function addFieldElement(text){
+            let root = document.createElement("div");
+            root.classList.add("row","selectFields","cel-13");
+            root.innerHTML = `<label class="cel-6">
+                        ${text}
+                        </label>
+                        <div class="cel-8 flex-center">
+                            <input class="alias name = "alias"/>
+                        </div>
+                        <div class="cel-8 ">
+                            <select name="groupBy" id="">
+                                <option value="">Selecione...</option>
+                                <option value="count">Contagem</option>
+                                <option value="max">Máximo</option>
+                                <option value="avg">Média</option>
+                                <option value="min">Minimo</option>
+                                <option value="sum">Soma</option>
+                            </select>
+                        </div>
+                        <div class="cel-2 actions">
+                            <span class="material-symbols-outlined">close_small</span>
+                        </div>
+                        `
+
+            return root;
+        }
+
+        function addFilterdElement(text){
+            let filterElement = document.createElement("div");
+            filterElement.add("row","selectFields","cel-13");
+            filterElement.innerHTML = 
+            `<label class="cel-4">${text}</label>
+                                <div class="cel-4">
+                                    <select name="comparador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="=">Igual</option>
+                                        <option value="&lt;&gt;">Diferente</option>
+                                        <option value="&gt;">Maior que</option>
+                                        <option value="&gt;=">Maior ou Igual</option>
+                                        <option value="&lt;">Menor que</option>
+                                        <option value="&lt;=">Menor ou Igual</option>
+                                        <option value="like %{}">Começa com</option>
+                                        <option value="like {}%">Termina com</option>
+                                        <option value="like%{}%">Contém</option>
+                                    </select>
+                                </div>
+                                <div class="cel-6flex-center">
+                                    <input class="valor" name=" valor">
+                                </div>
+                                <div class="cel-4">
+                                    <select name="operador" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="and ">E</option>
+                                        <option value="or ">ou</option>
+                                    </select>
+                                </div>
+                                <div class="cel-2 actions">
+                                    <span class="material-symbols-outlined">close_small</span>
+                                </div>
+                            </div>`;
+        }
+
+        function createTableTree(){
+            const tableArray = Object.keys(allTables);
+            console.log("Read json table: ", allTables);
+            const pallete = document.querySelector(".pallete");
+            
+            tableArray.map((tb) => {
+                let list = document.createElement("ul");
+                list.classList.add("datalist");
+                list.setAttribute('rel',tb);
+                
+                let table = document.createElement("li")
+                table.classList.add("itemsDataList","table");
+                table.innerText= tb;
+                table['draggable'] = true;
+                
+                const icon = document.createElement("i");
+                icon.classList.add("material-symbols-outlined");
+                icon.innerText = "database_search";
+
+                let iconInsert = icon.cloneNode(true);
+                iconInsert.innerText = "move_item";
+                iconInsert.classList.add("addField");
+
+                table.insertAdjacentElement("afterbegin",icon);
+                
+                list.appendChild(table);
+                
+                const itemElement = document.createElement('li');
+                itemElement.classList.add("itemsDataList");
+                itemElement['draggable'] = true;
+                
+                let itemAction = itemElement.cloneNode(true);
+                itemAction.classList.add("table");
+                itemAction.insertAdjacentElement("beforeend",iconInsert);
+                
+                let fields = Object.keys(allTables[tb]).filter((f)=>{
+                    return f !== "fk" && f !== "pk"
+                })
+                fields.map((field) => {
+                    let item = itemElement.cloneNode(true);
+                    let checkbox = document.createElement('input');  
+                    checkbox['type'] = "checkbox"
+                    checkbox['name'] = field
+
+                    item.innerText = field
+                    item.insertAdjacentElement("afterbegin",checkbox);
+
+                    list.appendChild(item);
+                })
+
+                list.appendChild(itemAction)
+                pallete.appendChild(list);
+                console.log(Object.keys(allTables[tb]));
+            })
+
+        }
+
+        function createSQL(){
+            let fields = Array.from(document.querySelectorAll(".queryEditor > .selectFields:not(:first-child)"));
+            let query = "select ";
+            let select = [];
+            let from = [];
+            let where = [];
+            let groupBy = [];
+            let hasAgreg = false;
+
+            fields.map((field) =>{
+                let column = field.children[0].innerText 
+                let alias = field.children[1].children[0].value
+                let agreg = field.children[2].children[0].value
+
+                console.log("Agregacao: ",agreg);
+                
+                if(agreg !==""){
+                    column = agreg+`(${column})`
+                    hasAgreg = true;
+                }else{
+                    if(hasAgreg)
+                        groupBy.push(column);
+                }
+                if (alias !== "")
+                    column += " as "+alias
+                select.push(column)
+            })
+
+            console.log("select "+select.join(',')," From ",sql.table.join(',')," group by ",groupBy.join(','));
+            if(select.length > 0)
+                query += select.join(',')
+            
+            query = query.replaceAll(",",",\n\t")
+            
+            if(sql.table.length > 0)
+                query += " from "+sql.table.join(',')
+        
+            query = query.replace("from","\nfrom");
+
+            if(sql.table.length > 1){
+                let where = "\nwhere "
+                let hasFks = false;
+                
+                if(sql.table.length > 1) hasFks = true;
+
+                sql.table.map((table,pos) =>{
+                    let foreignKeys  = allTables[table].fk;
+
+                    foreignKeys.map((foreignKey,index)=>{
+                        console.log("Index FK: ", "Table:",pos ," ",sql.table.length, "FK:",index," ",foreignKeys.length);
+                        let filter = ""
+                        if(foreignKey){
+                            filter = foreignKey.table+".id = "+table+"."+foreignKey.field+" \n";
+                        }
+                        if(hasFks && pos < sql.table.length){
+                            if(index < foreignKeys.length )
+                                filter = " and "+filter
+                        }
+                        
+                        where += filter;
+                        hasFks = true;
+
+                    })
+                    console.log("FK:",allTables[table].fk)
+
+                })
+
+                query += where +"\n";
+                
+            }
+
+
+            
+            if(groupBy.length > 0)
+                query += " group by "+groupBy.join(',')
+            
+                query = query.replace("group by","\ngroup by");
+
+            console.log("query: ",query)
+
+            const output = document.querySelector(".scriptOutput");
+            output.innerHTML = `<pre>${query}</pre>`;
+        }
+
+        const navlinks = Array.from(document.querySelectorAll('.nav_link'))
+        navlinks.map((navlink)=>{
+            navlink.addEventListener("click",(e) => tab(e))
+        })
+
+        function tab(e){            
+            let target = e.target.attributes.target.value;
+            navlinks.forEach(element => {
+                element.className = "nav_link"
+                let idContent = element.attributes.target.value
+                document.getElementById(idContent).classList.remove("show")
+                
+            });
+            
+            const content = document.getElementById(target);            
+            e.target.classList.toggle('active')
+            content.classList.toggle('show')
+        }
+
+        async function copyTextToClipboard() {
+            try {
+                const text = document.querySelector(".scriptOutput");
+                await navigator.clipboard.writeText(text.innerHTML);
+                console.log(navigator.clipboard);
+                console.log('Text copied to clipboard successfully!');
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+
+    </script>
+</body>
+</html>

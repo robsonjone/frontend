@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag & Drop Query Builder</title>
+    <link rel="stylesheet" href="styleIA.css">
+</head>
+<body>
+
+<div class="query-builder">
+    <h1>SQL Query Builder</h1>
+
+    <div class="columns-container">
+        <div class="column-list" id="available-fields">
+            <h3>Available Fields (Drag to Select)</h3>
+            <div class="field-item" draggable="true" data-field="id" data-type="INT">ID</div>
+            <div class="field-item" draggable="true" data-field="name" data-type="STRING">Name</div>
+            <div class="field-item" draggable="true" data-field="price" data-type="FLOAT">Price</div>
+            <div class="field-item" draggable="true" data-field="category" data-type="STRING">Category</div>
+            <div class="field-item" draggable="true" data-field="stock" data-type="INT">Stock</div>
+        </div>
+
+        <div class="column-list drop-zone" id="selected-fields">
+            <h3>Selected Fields (SELECT Clause)</h3>
+            <p class="placeholder">Drop fields here to select them for output.</p>
+        </div>
+    </div>
+
+    <div class="filter-builder">
+        <h3>Filter Builder (WHERE Clause)</h3>
+        <div id="filters-container">
+            </div>
+        <button id="add-filter-btn">+ Add Filter Condition</button>
+    </div>
+    
+    <hr>
+    
+    <div class="query-output">
+        <h3>Generated SQL Query:</h3>
+        <pre id="sql-output">SELECT * FROM products WHERE 1=1;</pre>
+    </div>
+
+</div>
+
+<script src="scriptIA.js"></script>
+</body>
+</html>

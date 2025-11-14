@@ -21,7 +21,7 @@
                 method: "GET",
                 headers: {
                     "Content-Type": "Authorization",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjIxOTQyNTYsImV4cCI6MTc2MjE5Nzg1Niwic3ViIjoxLCJuYW1lIjoiUm9ic29uIEpvbmUifQ.ygKTPrFx2y2yzzI2wdUiT5XzgYwBfcbYxSq2eSsquas",
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjIyNzYwNTIsImV4cCI6MTc2MjI3OTY1Miwic3ViIjoxLCJuYW1lIjoiUm9ic29uIEpvbmUifQ.yIEp4QO32yn9m1wBaYzeHBKfMYPsCwNRokFrb3oy6Uc",
                 }
             }
             ).then(response => response.json())
@@ -29,8 +29,23 @@
 
             console.log(data.id);
 
-            const inputNome = document.querySelector('input[name=\'nome\']');
-            inputNome.value = data.nome;
+            console.log(data);
+            
+            const inputs = Array.from(document.querySelectorAll('input.input,select.input'));
+            inputs.map((input,index)=>{
+                input.value = data[input.name];
+            });
+            
+
+            const profileData = Array.from(document.querySelectorAll('.profile-data'));
+            console.log(profileData[0].children);
+           let elements = Array.from(profileData[0].children);
+           elements.map(item =>{
+               let value = item.innerText;
+               item.innerText = data[value.replace(/[{}]/g, "")]?data[value.replace(/[{}]/g, "")]:value;
+               //profileData.innerText = data.nome;
+
+           })
         }
 
     </script>
@@ -63,8 +78,8 @@
                             <div class="profile cel-4 xs">
                                 <img src="https://randomuser.me/api/portraits/men/35.jpg" />
                                 <div class="profile-data">
-                                    <p class="profile-name">Robson Jone Gomes</p>
-                                    <p class="profile-info">Analista Desenvolvedor</p>
+                                    <p class="profile-name">{{nome}}</p>
+                                    <p class="profile-info">{{dtnascto}}</p>
                                     <p class="profile-info">ID: 1138</p>                                    
                                     <p class="profile-info">(41) 3200-6546</p>
                                 </div>
@@ -77,11 +92,11 @@
                                         <div class="item item2 cel-24 xs">
                                             <div class="component cel-16 xs">
                                                 <label for="nome">Nome</label>
-                                                <input type="text" id=nome" name="nome" required />
+                                                <input class="input" type="text" id=nome" name="nome" required />
                                             </div>
                                             <div class="component cel-8 xs">
                                                 <label>Nome Social</label>
-                                                <input type="text" name="nome_social" required/>
+                                                <input class="input" type="text" name="nome_social" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -89,11 +104,11 @@
                                     <div class="item item2 cel-24">
                                         <div class="component cel-12">
                                             <label>Nome Pai</label>
-                                            <input type="text" name=""/>
+                                            <input class="input" type="text" name="nome_pai"/>
                                         </div>
                                         <div class="component cel-12">
                                             <label>Nome Mãe</label>
-                                            <input type="text" name="" required/>
+                                            <input class="input" type="text" name="nome_mae" required/>
                                         </div>
                                         
                                     </div>
@@ -101,22 +116,22 @@
                                     <div class="item item2 cel-24">  
                                         <div class="component cel-4">
                                             <label>Data Nascimento</label>
-                                            <input type="date" name="dtnascto" required/>
+                                            <input class="input" type="date" name="dtnascto" required/>
                                         </div>
                                         <div class="component cel-4">
                                             <label>Data Obito</label>
-                                            <input type="date" name="datobito"/>
+                                            <input class="input" type="date" name="datobito"/>
                                         </div>
                                         <div class="component cel-4">
                                             <label>Sexo</label>
                                             <div class="check_group">
-                                                <input type="radio" name="sexo" value = "M" required/> <label for="sexo" class="m-0 label_check">Masculino</label>
-                                                <input type="radio" name="sexo" value = "F" required/> <label for="sexo" class="m-0 label_check">Feminino</label>
+                                                <input class="input" type="radio" name="sexo" value = "M" required/> <label for="sexo" class="m-0 label_check">Masculino</label>
+                                                <input class="input" type="radio" name="sexo" value = "F" required/> <label for="sexo" class="m-0 label_check">Feminino</label>
                                             </div>
                                         </div>
                                         <div class="component cel-4">
                                             <label>Raça</label>
-                                            <select name="id_racacor" required/>
+                                            <select class="input" name="id_racacor" required/>
                                                 <option>Selecione</option>
                                                 <option value = 4>Amarela</option>
                                                 <option value = 1>Branca</option>
@@ -129,7 +144,7 @@
                                 
                                         <div class="component cel-4">
                                             <label>Estado Civil</label>
-                                            <select name="id_estado_civil" required/>
+                                            <select class="input" name="id_estado_civil" required/>
                                                 <option>Selecione</option>
                                                 <option value = 2>Casado</option>
                                                 <option value = 3>Divorciado</option>
@@ -140,29 +155,29 @@
                                         </div>
                                         <!--div class="component cel-2">
                                             <label for="nome">CPF</label>
-                                            <input type="text" id=nome" name="nome" />
+                                            <input class="input" type="text" id=nome" name="nome" />
                                         </div>
                                         <div class="component cel-2">
                                             <label>RG</label>
-                                            <input type="text" name="" required/>
+                                            <input class="input" type="text" name="" required/>
                                         </div>
                                         <div class="component cel-1">
                                             <label>UF-RG</label>
-                                            <input type="text" name="" required/>
+                                            <input class="input" type="text" name="" required/>
                                         </div-->
                                         
                                     </div>
                                     <div class="item item2 cel-24">  
                                         <div class="component cel-6">
                                             <label>País Nascimento</label>
-                                            <select name="id_pais_nascimento" required/>
+                                            <select class="input" name="id_pais_nascimento" required/>
                                             <option>Selecione</option>
                                                 <option value = 105>Brasil</option>
                                             </select>
                                         </div>
                                         <div class="component cel-6">
                                             <label>UF Nascimento</label>
-                                            <select name="uf_nascimento" required/>
+                                            <select class="input" name="uf_nascimento" required/>
                                                 <option>Selecione</option>
                                                 <option value = "AC">Acre (AC)</option>
                                                 <option value = "AL">Alagoas (AL)</option>
@@ -195,7 +210,7 @@
                                         </div>
                                         <div class="component cel-6">
                                             <label>Cidade Nascimento</label>
-                                            <select name="cidade_nascimento" required/>
+                                            <select class="input" name="cidade_nascimento" required/>
                                             <option>Selecione</option>
                                                 <option>Casado</option>
                                                 <option>Solteiro</option>
@@ -204,7 +219,7 @@
                                         </div>
                                         <div class="component cel-6">
                                             <label>País Nacionalidade</label>
-                                            <select name="id_pais_nacionalidade" required/>
+                                            <select class="input" name="id_pais_nacionalidade" required/>
                                             <option>Selecione</option>
                                                 <option>Casado</option>
                                                 <option>Solteiro</option>
@@ -217,20 +232,20 @@
                                     <div class="item item2 cel-24">
                                         <div class="component cel-4">
                                             <label>Data Atualização</label>
-                                            <input type="datetime-local" value = "09/09/2025 09:38"id="ultimaAtualizacao" placeholder="dd/mm/yyyy hh24:mi:ss" name="data_atualizacao" readonly/>
+                                            <input class="input" type="datetime-local" value = "09/09/2025 09:38"id="ultimaAtualizacao" placeholder="dd/mm/yyyy hh24:mi:ss" name="data_atualizacao" readonly/>
                                         </div>
                                         <div class="component cel-6">
                                             <label>Usuário</label>
-                                            <input type="text" name="id_usuario" readonly/>
+                                            <input class="input" type="text" name="id_usuario" readonly/>
                                         </div>
                                         <div class="component cel-4">
                                             <label>Perfil</label>
-                                            <input type="text" name="id_perfil" readonly/>
+                                            <input class="input" type="text" name="id_perfil" readonly/>
                                         </div>
                                         
                                         <!--div class="component cel-6" style="justify-content: flex-end;flex-direction: row;gap:.5rem;">
                                             <button  class="danger" onClick="send()" style="align-self: end">Cancelar</button>
-                                            <input class="primary" type="submit" form="form_pessoa" value="Enviar" onClick="send()" style="align-self: end"/>
+                                            <input class="input" class="primary" type="submit" form="form_pessoa" value="Enviar" onClick="send()" style="align-self: end"/>
                                         </div-->
                                     </div>
                                            
@@ -309,12 +324,75 @@
                     </div>
                 </div>
 
-                <div class="panel" style="display: none;">
+                <div class="panel" ">
                     <div class="panel-title">
                         Profile
                     </div>
                     <div class="panel-body flex-center">
-                        <div class="profile cel-20">
+                        <div class="layout">
+                            <div class="resize">resize1</div>
+                            <div class="resize">resize2</div>
+                            <div class="resize">resize3</div>
+                            <div class="resize">resize4</div>
+                            <div id="table" class="resize" onclick="duplicate()">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Data</th>
+                                            <th>Operação</th>
+                                            <th>Usuário</th>
+                                            <th>Nome</th>
+                                            <th>Nome Pai</th>
+                                            <th>Nome Mãe</th>
+                                            <th>Nascimento</th>
+                                            <th>Óbito</th>
+                                            <th>Sexo</th>
+                                            <th>Raça</th>
+                                            <th>Esado Civil</th>
+                                            <th>País / UF / Cidade Nascimento</th>
+                                            <th>Nacionalidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>04/09/2025 11:53:33</td>
+                                            <td>ALT</td>
+                                            <td>MASTER</td>
+                                            <td>ROBSON JONE GOMES</td>
+                                            <td>NÃO DECLARADO</td>
+                                            <td>SINDIA TEODORO GOMES</td>
+                                            <td>14/08/1985</td>
+                                            <td></td>
+                                            <td>Masculino</td>
+                                            <td>Branca</td>
+                                            <td>Casado</td>
+                                            <td>Brasil/PR/Umuarama</td>
+                                            <td>Brasil</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>01/09/2025 08:21:12</td>
+                                            <td>INS</td>
+                                            <td>MASTER</td>
+                                            <td>ROBSON JONE GOMES</td>
+                                            <td>NÃO DECLARADO</td>
+                                            <td>SINDIA TEODORO GOMES</td>
+                                            <td>14/08/1985</td>
+                                            <td></td>
+                                            <td>Masculino</td>
+                                            <td>Branca</td>
+                                            <td>Solteiro</td>
+                                            <td>Brasil/PR/Umuarama</td>
+                                            <td>Brasil</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="resize" id="draggableDiv"> Div</div>
+                        </div>
+                        <div class="profile cel-20" style="display: none;">
                             <div class="profile-banner">
                                 
                             </div>
@@ -334,6 +412,41 @@
         let data = new Date();
         //atualizacao.value = data.toLocaleDateString()+" "+data.toLocaleTimeString();
     </script>
+    <script>
+        const draggableDiv = document.getElementById('draggableDiv');
+        let isDragging = false;
+        let offsetX, offsetY; // To store the offset from the div's top-left to the mouse pointer
+
+        draggableDiv.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            draggableDiv.style.cursor = 'grabbing';
+
+            // Calculate the offset from the div's top-left corner to the mouse pointer
+            offsetX = e.clientX - draggableDiv.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableDiv.getBoundingClientRect().top;
+            console.log(draggableDiv.getBoundingClientRect().left,"  ",e.clientX,"  ",offsetX);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            // Calculate new position based on mouse coordinates and stored offset
+            draggableDiv.style.left = (e.clientX - offsetX) + 'px';
+            draggableDiv.style.top = (e.clientY - offsetY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            draggableDiv.style.cursor = 'grab';
+        });
+
+        function duplicate(){
+            const element = document.querySelector("#table");
+            const layout = document.querySelector(".layout");
+
+            layout.insertAdjacentElement("beforeend",element.cloneNode(true));
+        }
+    </script>       
 
 </body>
 </html>

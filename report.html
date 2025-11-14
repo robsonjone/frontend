@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="./assets/css/iconfon/icofont.css" >
+    <link rel="stylesheet" href="./styles.css" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <div class="panel" ">
+        <div class="panel-title">
+            Profile
+        </div>
+        <div class="panel-body row flex-center">
+            <div class="tools">
+                <div class="pallete">
+                    <div class="pallete-title">
+                        <i class="material-symbols-outlined">widgets</i>Components
+                    </div>
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined">page_header</i>Page Header
+                        <div class="resize hidden" style="width: 100%;">
+                        </div>
+                    </div>
+    
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined">title</i>Título
+                        <div class="resize hidden" contenteditable="true" style="width: 100%;text-align: left;font-size:20px">Título</div>
+                    </div>                
+    
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined">table</i>Tabela
+                        <div class="tabela resize hidden" style="display:flex;width: 100%;min-height: 70px;padding:.75rem;border:1px solid #ccc;visibility: none;">
+                            <div class="coluna resize hidden" draggable="true" style="border:1px solid #ccc;height: 40px;width: 70px;">
+                                <span class="th" contenteditable="true" style="display: block;border-bottom:1px solid #ccc;">Title</span>
+                                <span class="td" contenteditable="true" style="display: block;">value</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined"> add_column_right </i> Coluna
+                        <div class="coluna resize hidden" draggable="true" style="border:1px solid #ccc;height: 40px;">
+                            <span class="th" contenteditable="true" style="display: block;border-bottom:1px solid #ccc;">Title</span>
+                            <span class="td" contenteditable="true" style="display: block;">value</span>
+                        </div>
+                        </i>
+                    </div>
+    
+                    <div class="pallete-item">
+                        <i class="icofont material-symbols-outlined">list</i>Lista
+                    </div>
+    
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined">layers</i>Section
+                        <div class="section resize hidden">
+                        </div>
+                    </div>
+    
+                    <div class="pallete-item">
+                        <i class="material-symbols-outlined"></i>
+                        <ul class="resize hidden">
+                            <li>Item 1</li>
+                        </ul>
+                    </div>
+    
+                    <hr style="margin:1rem 0;border-color:#ccc"/>
+                </div>
+                <div class="pallete">
+                    <div class="pallete-title">
+                        <i class="material-symbols-outlined">database_search</i>
+                        Tabelas
+                    </div>
+                    <div class="pallete-item">                        
+                        <ul class="datalist">
+                            <li>Pessoa
+                                <div class="itemsDataList">
+                                    <span class="fieldTable" draggable = true value = "{{id}}">Id</span>
+                                    <span class="fieldTable" draggable = true value = "{{nome}}">nome</span>
+                                    <span class="fieldTable" draggable = true value = "{{data_nasc}}">data_nasc</span>
+                                </div>
+                            </li>
+                            <li>Endereco</li>
+                            <li>Cidade</li>
+                            <li>País</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        
+            <div class="content">
+                <div class="paper" id="paper" onclick="">
+                    
+                </div>
+            </div>
+
+            <div class="properties">
+                <div class="properties-item" style="gap:1rem">
+                    <i class="material-symbols-outlined" rel="" value="" onclick="setColorInput()">refresh</i>
+                    <i class="material-symbols-outlined" rel="" value="" onclick="removeElementSelected()">close</i>
+                    <i class="material-symbols-outlined" rel="" value="" onclick="exportToPDF()">picture_as_pdf</i>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Text</p>
+                    <div class="properties-content" style="margin-bottom: 8px;">
+                        <input type="text" name="valueField" style="flex:1;" onkeyup=""/>
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Font</p>
+                    <div class="properties-content">
+                        <select name="font-family">
+                            <option value = "Arial">Arial</option>
+                            <option value = "Times">Times</option>
+                            <option value = "Inter">Inter</option>
+                            <option value = "Courier">Courier</option>
+                            <option value = "Roboto">Roboto</option>
+                            <option value = "Lucida Console">Lucida Console</option>
+                        </select>
+                        <select name="font-size">
+                            <option value = "6px">6px</option>
+                            <option value = "8px">8px</option>
+                            <option value = "12px">12px</option>
+                            <option value = "16px">16px</option>
+                            <option value = "20px">20px</option>
+                            <option value = "24px">24px</option>
+                            <option value = "32px">32px</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Alinhamento</p>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined" rel = "textAlign" value = "left">format_align_left</i>
+                        <i class="material-symbols-outlined" rel = "textAlign" value = "center">format_align_center</i>
+                        <i class="material-symbols-outlined" rel = "textAlign" value = "right">format_align_right</i>
+                        <i class="material-symbols-outlined" rel = "textAlign" value = "justify">format_align_justify</i>
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Font</p>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined" rel = "font-weight" value = "bold">format_bold</i>
+                        <i class="material-symbols-outlined" rel = "font-style" value = "italic">format_italic</i>
+                        <i class="material-symbols-outlined" rel = "text-decoration" value = "underline">format_underlined</i>
+                        <i class="material-symbols-outlined" rel = "text-decoration" value = "line-throught">format_strikethrough</i>
+                        <i class="material-symbols-outlined" rel = "text-decoration" value = "overline">format_overline</i>
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Cor de Texto</p>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined color" rel="color" value="#ccc">format_color_text</i>
+                        <input type="color" id="color" name="color" />                    
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Internal Space </p>
+                    <div class="properties-content">
+                        <input type="text" name="paddingValue" size="2" onkeyup=""/>
+                        <i class="material-symbols-outlined action" id="addPadding">add</i>
+                        <i class="material-symbols-outlined action" id="removePadding">remove</i>
+                    </div>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined" rel = "padding"        value = "8px 0">align_justify_space_between</i>
+                        <i class="material-symbols-outlined" rel = "padding"        value = "0 8px">align_space_between</i>
+                        <i class="material-symbols-outlined" rel = "paddingLeft"    value = "8px">arrow_right_alt</i>
+                        <i class="material-symbols-outlined" rel = "paddingTop"     value = "8px">arrow_downward_alt</i>
+                        <i class="material-symbols-outlined" rel = "paddingBottom"  value = "8px">arrow_upward_alt</i>
+                        <i class="material-symbols-outlined" rel = "paddingRight"   value = "8px">arrow_left_alt</i>                        
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Borda</p>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined" rel = "border" value = "1px solid #ccc">border_all</i>
+                        <i class="material-symbols-outlined" rel = "borderLeft" value = "1px solid #ccc">border_left</i>
+                        <i class="material-symbols-outlined" rel = "borderTop" value = "1px solid #ccc">border_top</i>
+                        <i class="material-symbols-outlined" rel = "borderBottom" value = "1px solid #ccc">border_bottom</i>
+                        <i class="material-symbols-outlined" rel = "borderRight" value = "1px solid #ccc">border_right</i>
+                        <i class="material-symbols-outlined" rel = "border" value = "none">border_clear</i>
+                    </div>
+                    <br/>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined color" rel="border-color" value="#e66465">border_color</i>
+                        <input type="color" id="border-color" name="borderColor" value="#e66465" />
+                    </div>
+                </div>
+                <div class="properties-item">
+                    <p class="label">Cor de Fundo</p>
+                    <div class="properties-content">
+                        <i class="material-symbols-outlined color" rel="background" value="#ccc">format_color_fill</i>
+                        <input type="color" id="background" name="foreground" value="#e66465" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile cel-20" style="display: none;">
+            <div class="profile-banner">
+                
+            </div>
+            <div class="profile-header">
+                <img src="./assets/img/profile (5).jpg" height="200"/>
+                <div class="profile-name">John Doe</div>
+            </div>
+        </div>                            
+    </div>
+</div>
+</div>
+
+<script>
+    let elementeSelected = null;
+    let elementDraged = null;
+
+    const defaultProps = ["textAlign","font-weight","font-style","text-decoration","color","borderLeft","borderTop","borderBottom","borderRight","border","border-color","background","font-famil","font-size"];
+    /*const draggableDiv = document.getElementById('draggableDiv');
+    let isDragging = false;
+    let offsetX, offsetY; // To store the offset from the div's top-left to the mouse pointer
+
+    draggableDiv.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        draggableDiv.style.cursor = 'grabbing';
+
+        // Calculate the offset from the div's top-left corner to the mouse pointer
+        offsetX = e.clientX - draggableDiv.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableDiv.getBoundingClientRect().top;
+        console.log(draggableDiv.getBoundingClientRect().left,"  ",e.clientX,"  ",offsetX);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        // Calculate new position based on mouse coordinates and stored offset
+        draggableDiv.style.left = (e.clientX - offsetX) + 'px';
+        draggableDiv.style.top = (e.clientY - offsetY) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        draggableDiv.style.cursor = 'grab';
+    });
+*/
+
+    const inputText = document.querySelector("input[name='valueField']");
+    const inputPadding = document.querySelector("input[name='paddingValue']");
+
+    console.log("InputText",inputText.value);
+
+    const pallete = Array.from(document.querySelectorAll(".pallete > .pallete-item > i"));
+    const palleteItems = Array.from(pallete);
+
+    console.log("palleteItems:",palleteItems);
+
+    palleteItems.map((item,index) =>{
+        item.addEventListener('click',(e)=> {
+            duplicate(e);
+            getPropertiesOfElement(e);
+        });
+    });
+
+    const properties = Array.from(document.querySelectorAll(".properties > .properties-item > .properties-content > i:not(.action)"));
+    properties.map((item,index) =>{
+        //console.log(item.attributes.rel.value);
+        item.addEventListener('click',(e)=>setPropertiesToElement(e));
+    });
+
+    const actions = Array.from(document.querySelectorAll(".properties > .properties-item > .properties-content > i.action"));
+    actions.map((item,index) =>{
+        //console.log(item.attributes.rel.value);
+        item.addEventListener('click',(e)=>setPadding(e));
+    });
+    
+    const colors = Array.from(document.querySelectorAll("input[type=color]"));
+    colors.map((item,index) =>{
+        item.addEventListener('change',(e)=>setColor(e));
+    });
+
+    const fontFamily = Array.from(document.querySelectorAll("select[name^='font']"));
+    console.log("Select:", fontFamily)
+    fontFamily.map((font) =>{
+        font.addEventListener('change',(e) => setFontProperty(e));
+    });
+    
+
+    function duplicate(e){
+        //const element = document.querySelector("#table");
+        console.log(e.currentTarget);
+        const layout = document.querySelector(".paper");
+        let newItem = e.currentTarget.parentNode.children[1].cloneNode(true);
+        layout.insertAdjacentElement("beforeend",newItem);
+
+        newItem.addEventListener("click",(e)=>{active(e.target);getPropertiesOfElement(e);});
+        newItem.addEventListener("mousedown",(e)=>getColumn());
+        active(newItem);
+        getPropertiesOfElement(newItem);
+    }
+
+    function active(e){
+        //desactive();
+        elementeSelected = e;
+        e.classList.toggle("active");
+        console.log("Actived");
+        
+    }
+    
+    function desactive(){
+        let allAcitived = Array.from(document.querySelectorAll(".active"));
+        console.log(allAcitived);        
+        allAcitived.map((item) => {
+            item.classList.toggle("active")
+        });
+    }
+
+    function getPropertiesOfElement(e){
+        const elements = Array.from(document.querySelectorAll(".paper .resize *"));
+
+        console.log("Css text:",elementeSelected.style.cssText.replace(/\s/g, ''));
+        let style = elementeSelected.style.cssText.split(";");
+        console.log(style, " Count:",style.length);
+        /*let props = {};
+        style.map((ele) =>{
+            let keyValue = ele.split(":");
+            props[keyValue[0].trim()] = String(keyValue[1]).trim();
+        });
+        
+        console.log(props);*/
+        inputText.value = elementeSelected.innerText;
+        properties.map((prop) =>{
+
+            console.log(prop.classList);
+
+            let pp = prop.attributes.rel.value;
+            let pv = prop.attributes.value.value;
+            let v = elementeSelected.style[pp];
+
+            if(v !== undefined && v!== "" && pv === v){
+                prop.classList.add("selected");
+                //console.log("Econtrado prop:",pp," valor:",v);
+            }
+            else
+            prop.classList.remove("selected");
+        
+            let inputColor = document.querySelector('input[name=color]');
+            //console.log(inputColor.attributes.value);
+            //console.log("Prop x Value:",pp," valor:",v);
+            if(pp === "color")
+                inputColor.value = rgbToHex(v);
+        })
+
+
+        
+    }
+
+    function setPropertiesToElement(e){
+        let value = e.target.attributes.value.nodeValue;
+        let prop = e.target.attributes.rel.nodeValue;
+
+        e.target.classList.toggle("selected");
+
+        console.log("SetPropertyToElement: ",prop," ",value);
+        if(elementeSelected.style[prop].length > 0)
+            value = "";
+            //console.log(elementeSelected.style[prop]);
+        
+        elementeSelected.style[prop] = value;
+    }
+
+    
+    function getColumn(){
+        const tableColumn = Array.from(document.querySelectorAll('.coluna.resize'));
+
+        tableColumn.map((column)=>{
+            column.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/html', event.target);
+                elementDraged = event.target;
+                console.log("Dragging");
+                getTable();
+            });
+        });
+    }
+
+    function getTable(){
+        const tabela = Array.from(document.querySelectorAll('.tabela'));
+        console.log("Tabela");
+        tabela.map((tb)=>{
+            tb.addEventListener('dragover', (event) => {
+                event.preventDefault(); // Allow drop
+            });
+
+            tb.addEventListener('dragenter', (event) => {
+                event.preventDefault(); // Allow drop
+                // Optional: Add visual feedback for the drop zone
+                tb.classList.add('highlight');
+            });
+            tb.addEventListener('dragleave', () => {
+                // Optional: Remove visual feedback
+                tb.classList.remove('highlight');
+            });
+
+            tb.addEventListener('drop', (event) => {
+                event.preventDefault(); // Prevent default drop behavior
+                const data = event.dataTransfer.getData('text/html');
+
+                console.log(event.dataTransfer);
+                //const draggedElement = document.getElementById(data);
+                //if (draggedElement) {
+                if(elementDraged){
+                    //tb.appendChild(draggedElement); // Move the element
+                    event.target.appendChild(elementDraged);
+                }
+                tb.classList.remove('highlight'); // Remove visual feedback
+            });
+        });
+    }
+
+    function setColor(e){
+        console.log(e.target.id);
+        let ele = document.getElementById(e.target.id);
+        let icon = document.querySelector("i[rel=color]");
+
+        console.log(icon.dataset);
+        //ele.attributes.value = e.target.value;
+        elementeSelected.style[e.target.id] = e.target.value;
+    }
+
+    function setColorInput(){
+        let inputColor = document.querySelector('#color');
+        console.log(inputColor.value);
+        inputColor.value = "#ffdddd";
+    }
+
+    function setFontProperty(e){
+        console.log("Set Property Font: ",e.target)
+        elementeSelected.style[e.target.name] = e.target.value;
+    }
+
+    function setText(){
+        //elementeSelected.innerHTML = inputText.value;
+        console.log(inputText.value," ",elementeSelected);
+    }
+
+    function setPadding(e){
+        let val = parseInt(inputPadding.value);
+        console.log(e.target.id)
+        if(e.target.id === "addPadding")
+            val = val + 4;
+        else
+            val = val - 4;
+
+        let paddings = properties.filter((pad) =>{
+            return pad.attributes.rel.value.includes("padding") 
+        })
+
+        paddings.map((padding) => {
+            padding.attributes.value.value = val+"px";
+        })
+        inputPadding.value = val;
+    }
+
+    function removeElementSelected(){
+        elementeSelected.remove();
+    }
+
+    function exportToPDF(){
+        var element = document.getElementById('paper');
+        var opt = {
+        margin:       0,
+        filename:     'Relatório PDF.pdf',
+        //image:        { type: 'PDF', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'mm', format: 'A4', orientation: 'portrait' }
+        };
+
+        // New Promise-based usage:
+        html2pdf().set(opt).from(element).toPdf().save();
+    }
+
+    function rgbToHex(rgb) {
+        // Extract the R, G, B values from the rgb(R, G, B) string
+        const match = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        if (!match) {
+            return null; // Return null if the format is not recognized
+        }
+
+        // Convert each component to a hexadecimal string and pad with '0' if needed
+        function toHex(c) {
+            const hex = parseInt(c).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+        }
+
+        // Combine the hexadecimal components with a '#' prefix
+        return "#" + toHex(match[1]) + toHex(match[2]) + toHex(match[3]);
+    }
+
+
+</script>       
+</body>
+</html>
+
+
+
+
