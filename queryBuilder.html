@@ -21,9 +21,10 @@
                 <div class="pallete">
                     <div class="pallete-title">
                         <i class="material-symbols-outlined">database_search</i>
-                        queryEditors
+                        &nbsp;queryEditor
                     </div>        
-                    <div class="fieldFilter">Filtro</div>                                    
+                    <!--div class="fieldFilter">Filtro</div-->
+
                     <!--ul class="datalist">
                         <li class="table">Table 1</li>
                         <li class="itemsDataList"><input type = "checkbox" name="id" /> Field</li>
@@ -84,18 +85,18 @@
             <div class="content">
                 <nav class="navtab">
                     <nav class="nav_items">
-                        <div class="nav_link " target = "tabQueryEditor">Query</div>
-                        <div class="nav_link active" target = "tabFilterQueryEditor">Filter</div>
+                        <div class="nav_link active" target = "tabQueryEditor">Query</div>
+                        <div class="nav_link " target = "tabFilterQueryEditor">Filter</div>
                     </nav>
                 </nav>
                 <div class="nav_content">
-                    <div class="nav_content_item " id = "tabQueryEditor">
+                    <div class="nav_content_item show" id = "tabQueryEditor">
                         <div id="queryEditor" class="queryEditor">
                             <div class="row selectFields cel-13">
                                 <label class="cel-6">Name</label>
                                 <label class="cel-8">Alias</label>
                                 <label class="cel-8">Function</label>                        
-                                <label class="cel-2">Actions/</label>                        
+                                <label class="cel-2">Actions</label>                        
                             </div>
                         </div>
                         <div class="row" style="justify-content: space-between;">
@@ -107,7 +108,7 @@
                         
                         <div class="scriptOutput"></div>
                     </div>
-                    <div class="nav_content_item show" id = "tabFilterQueryEditor">
+                    <div class="nav_content_item " id = "tabFilterQueryEditor">
                         <div id="filterQueryEditor" class="queryEditor">
                             <div class="row selectFields cel-24" style="border:1px solid #ccc">
                                 <label class="cel-4">pessoa.nome</label>
@@ -214,6 +215,7 @@
 
         let elementeSelected = null;
         let elementDraged = null;
+        let currentTable = "";
 
         const tableFields = Array.from(document.querySelectorAll('.datalist > .itemsDataList:not(.table)'));        
         const fieldFilter = document.querySelector('.fieldFilter');       
@@ -246,14 +248,10 @@
             field.addEventListener('dragstart', (event) => {               
 
                 event.dataTransfer.setData('text/html', event.target.nextElementSibling);
-               /* fieldFilter.firstChild.innerText = event.target.innerText;
-                console.log("After: ",fieldFilter.firstChild.innerText);
-                elementDraged = fieldFilter.cloneNode(true);*/
-                
-                //addFieldElement
+               
+                currentTable = field.parentElement.attributes.rel.value
                 elementDraged = addAllFieldsTable(event)
-                //elementDraged.firstChild.nextSibling.innerText = event.target.innerText;
-                console.log("Dragging table: ",elementDraged);
+                console.log("Dragging table: ",currentTable," - ",elementDraged);
             });
         });
        
@@ -292,13 +290,19 @@
         const copyToClipboard = document.querySelector('.copyToClipboard');
         
         copyToClipboard.addEventListener("click",() => copyTextToClipboard());
+
+        function addInputAlias(e){
+            alert(e.target.value)
+            console.log(e.target.value)            
+        }
         
         const sql = {
-            table:"",
-            fields:"",
+            tables:[],
+            fields:[],
             filter:""
         }
         
+        let query = {}
         const fields=[];
         const tables=[];
 
@@ -312,6 +316,7 @@
                 //console.log("table: ",table);
 
                 let tableName = table.attributes.rel.value;
+                currentTable = tableName;
                 //tables.push(tableName);
                 //console.log("Table:", table.attributes.rel.value);
 
@@ -345,23 +350,84 @@
         function addAllFieldsTable(e){
             console.log(e.target.parentNode)
             let newElement = document.createDocumentFragment()
-            Array.from(e.target.parentNode.querySelectorAll(".itemsDataList:not(.table)")).map((field)=>{
+            let table = e.target.parentNode.attributes.rel.value
+            let flds = Array.from(e.target.parentNode.querySelectorAll(".itemsDataList:not(.table)"))
+
+            let ff = []
+
+            flds.map((field)=>{
                 newElement.appendChild(addFieldElement(field.innerText))
+                ff.push(field.innerText)
             })
+            
+            addFieldToArray(ff,table)          
 
             return newElement
         }
 
+        function addFieldToArray(field,table){
+            if(Object.keys(query).includes(table)){
+               table += "1"
+            }
+            query[table] = field
+           // addTableToArray(table)
+            console.log("Add filed to array:",table, field)
+        }
+
+        function addTableToArray(table){
+            if(!sql.fields.includes(table))
+                sql.tables.push(table)
+
+            console.log("Add filed to array:", sql.tables)
+
+        }
+
         function addFieldElement(text){
             let root = document.createElement("div");
-            root.classList.add("row","selectFields","cel-13");
-            root.innerHTML = `<label class="cel-6">
+            root.classList.add("selectFields","cel-13");
+
+            let label =  document.createElement("label");
+            label.innerText = text;
+            root.insertAdjacentElement("beforeend",label)
+
+            let div =  document.createElement("div");
+            div.classList.add("cel-8","flex-center");
+
+
+            let input = document.createElement("input");
+            input.setAttribute("name",currentTable+"_"+text)
+            input.addEventListener("change",(e) =>{
+                [table, name] = e.target.name.split(/_(.*)/s)
+                
+                let pos = query[table].indexOf(name) 
+                
+                query[table][pos] = name+" as "+e.target.value;
+                //console.log("Pos: ",pos,"  ",query[table])
+            });
+
+            root.insertAdjacentElement("beforeend",input)
+
+            let select = document.createElement("select");
+            select.setAttribute("name",currentTable+"_"+text);
+            
+            let option = document.createElement("option");
+            option.setAttribute("value","");
+            option.innerText = "Selecione..."
+            select.insertAdjacentElement("beforeend",option)
+            root.insertAdjacentElement("beforeend",select)
+
+            let actionRemove = document.createElement("i")
+            actionRemove.classList.add("material-symbols-outlined")
+            actionRemove.innerText = "close_small"
+            root.insertAdjacentElement("beforeend",actionRemove)
+
+           /* root.innerHTML = `<label class="">
                         ${text}
                         </label>
-                        <div class="cel-8 flex-center">
-                            <input class="alias name = "alias"/>
+                        <div class=" flex-center">
+                            <input class="alias" name = "${currentTable}_${text}" onChange="((e) => {alert()})"/>
                         </div>
-                        <div class="cel-8 ">
+                        <div class="">
                             <select name="groupBy" id="">
                                 <option value="">Selecione...</option>
                                 <option value="count">Contagem</option>
@@ -371,11 +437,11 @@
                                 <option value="sum">Soma</option>
                             </select>
                         </div>
-                        <div class="cel-2 actions">
+                        <div class=" actions">
                             <span class="material-symbols-outlined">close_small</span>
                         </div>
                         `
-
+            */
             return root;
         }
 
@@ -471,6 +537,28 @@
 
         }
 
+        /*
+            Build query from Object
+        */
+
+        function createQUERY(){
+            let k = Object.keys(query)
+            let q = "select "
+            k.map((key,pos) =>{
+                q += query[key].join(",")   
+                if(pos < k.length - 1)             
+                q += ","
+            })
+
+            q += " from "+k.join(',')
+
+            console.log(query)
+            console.log(q)
+        }
+
+        /*
+            Build query from input
+        */
         function createSQL(){
             let fields = Array.from(document.querySelectorAll(".queryEditor > .selectFields:not(:first-child)"));
             let query = "select ";

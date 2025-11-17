@@ -135,12 +135,12 @@
     border: 1px solid #ccc;
 }
 
-.datalist .table{
+.datalist > .itemsDataList.table{
     flex:1;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 8px;
+    align-items: end;
+    padding: 1rem 0 1rem 1rem;
     border: none;
     margin-bottom: -1px;
     font-size: 13px;
@@ -148,20 +148,24 @@
     text-transform: capitalize;
     color:#555;
 }
-.datalist .table i{
+.datalist > .itemsDataList.table i{
     font-size: 1.125rem;
-    margin-right: .5rem;
-    color:#f90;
+    margin-right: .0125rem;
+    color:#1b98e3;
 }
 
 .datalist .itemsDataList{
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding:0 1rem;
+    padding:0 2rem;
     gap:4px;
     font-size: 13px;
     color:#777;
+}
+.datalist .itemsDataList > input[type="checkbox"]{
+    height: 24px;
+
 }
 .datalist .itemsDataList:last-child{
     justify-content: flex-end;
@@ -209,6 +213,8 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    margin-bottom: -1px;
+    z-index:10;
   }
   
   .nav_items .nav_link {
@@ -226,9 +232,9 @@
   }
   
   .nav_items .nav_link.active {
-    background: #0871f1;
-    color: #fefefe;
-    border-bottom: none;
+    background: #fff;
+    color: #333;
+    border-bottom: 1px solid #fff;
   }
   
   .nav_items .nav_link:not(.active) {
@@ -241,8 +247,7 @@
     padding: 1rem;
     align-items: stretch;
     align-self: stretch;
-    border: 1px solid #ccc;
-    border-top: none;
+    border: 1px solid #ddd;
   }
   
   .nav_content>.nav_content_item {
@@ -277,22 +282,26 @@
     padding:.5rem;  
     margin-left: 1rem;
 }
-.queryEditor >.row.selectFields > *{
+.queryEditor > .selectFields > *{
     display: flex;
 }
-.queryEditor >.row.selectFields{
+.queryEditor > .selectFields{
+    display: grid;
+    grid-template-columns: 3fr 3fr 2fr 1fr;
+    column-gap: 1rem;
     justify-content: space-between;
-    border:1px solid #ccc;
-    padding:.25rem 1rem;
+    border:1px solid #eee;
+    background-color: #f7f7f7;
+    padding:.5rem 1rem;
     margin-bottom:.5rem;
     align-items: center;
 }
-.queryEditor >.row.selectFields .actions span{
+.queryEditor > .selectFields .actions span{
     color:#dd3131;
     font-size: 1.25rem!important;
     font-weight: bold;
 }
-.queryEditor >.row.selectFields input,.queryEditor >.row.selectFields select{
+.queryEditor > .selectFields input,.queryEditor > .selectFields select{
     height: 22px;
 }
 
