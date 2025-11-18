@@ -102,6 +102,7 @@
                         <div class="row" style="justify-content: space-between;">
                             <div class="btn primary">
                                 <span class="material-symbols-outlined" onclick="createSQL()">slideshow</span>
+                                <span class="material-symbols-outlined" onclick="createQUERY()">slideshow</span>
                             </div>
                             <i class="material-symbols-outlined copyToClipboard">content_copy</i>
                         </div>
@@ -206,6 +207,7 @@
                 id_pessoa:"number",
                 login:"varchar",
                 email:"varchar",
+                id_usuario:"number",
                 pk:"id",
                 fk:[{table:"pessoa",field:"id_pessoa"}]
             }
@@ -543,13 +545,34 @@
 
         function createQUERY(){
             let k = Object.keys(query)
+            let fieldsSelected = []
+            let doubleFields = []
             let q = "select "
+            let field = ""
+
             k.map((key,pos) =>{
-                q += query[key].join(",")   
-                if(pos < k.length - 1)             
-                q += ","
+                query[key].map((field) =>{
+                    if(fieldsSelected.includes(field)) {
+                        doubleFields.push(field)
+                    }
+                    fieldsSelected.push(field)
+                })
+
             })
 
+            let allFields = []
+            k.map((key,pos) =>{
+                query[key].map((field) =>{
+                    if(doubleFields.includes(field)) {
+                         field = key+"."+field
+                    }
+                    allFields.push(field)
+                })
+
+            })
+
+            console.log("Double Fields: ",allFields)
+            q += allFields.join(",")  
             q += " from "+k.join(',')
 
             console.log(query)
