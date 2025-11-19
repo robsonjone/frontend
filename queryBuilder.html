@@ -547,10 +547,16 @@
             let k = Object.keys(query)
             let fieldsSelected = []
             let doubleFields = []
+
+            let tableSelected = [], doubleTables = []
             let q = "select "
             let field = ""
 
             k.map((key,pos) =>{
+                if(tableSelected.includes(k))
+                    doubleTables.push(k)
+                tableSelected.push(k)
+
                 query[key].map((field) =>{
                     if(fieldsSelected.includes(field)) {
                         doubleFields.push(field)
@@ -561,19 +567,28 @@
             })
 
             let allFields = []
+            let allTables = []
+
             k.map((key,pos) =>{
+                
                 query[key].map((field) =>{
                     if(doubleFields.includes(field)) {
-                         field = key+"."+field
+                        field = key+"."+field
                     }
                     allFields.push(field)
                 })
 
+                if(doubleTables.includes(k))
+                    k += "1"
+
+                    allTables.push(k)
             })
+
+
 
             console.log("Double Fields: ",allFields)
             q += allFields.join(",")  
-            q += " from "+k.join(',')
+            q += " from "+allTables.join(',')
 
             console.log(query)
             console.log(q)
