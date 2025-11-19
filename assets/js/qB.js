@@ -34,15 +34,18 @@ const allTables={
 
 const queryToBuild = {}
 let currentElementDragged ;
+let currentTable = "";
 
 createTableList();
 
+/*
 addOneFieldToList('pessoa','nome_da_pessoa');
 addOneFieldToList('pessoa','nasc_da_pessoa');
 addAllFieldsFromTableToList('pessoa');
 
 addAllSelectedFieldsToList()
 
+*/
 /**
  * Add ONE Field to array list of query Object
  */
@@ -126,10 +129,10 @@ function createTableList(){
 
             event.dataTransfer.setData('text/html', event.target.nextElementSibling);
            
-            let currentTable = table.parentNode.attributes.rel.value
+            currentTable = table.parentNode.attributes.rel.value
             addAllFieldsFromTableToList(currentTable)
 
-            let currentElementDragged = "" //addAllFieldsTable(event)
+            currentElementDragged = "" //addAllFieldsTable(event)
         });
         
         const icon = document.createElement("i");
@@ -144,18 +147,10 @@ function createTableList(){
         
         list.appendChild(table);
         
-        const itemElement = document.createElement('li');
+        let itemElement = document.createElement('li');
         itemElement.classList.add("itemsDataList");
         itemElement['draggable'] = true;
-        itemElement.addEventListener('dragstart', (event) => {               
-
-            event.dataTransfer.setData('text/html', event.target.nextElementSibling);
-           
-            let currentElementDragged = table.parentNode.attributes.rel.value
-            addOneFieldToList(currentTable,currentElementDragged)
-
-            //let currentElementDragged = "" //addAllFieldsTable(event)
-        });
+        
         
         let itemAction = itemElement.cloneNode(true);
         itemAction.classList.add("table");
@@ -167,6 +162,18 @@ function createTableList(){
         fields.map((field) => {
             let item = itemElement.cloneNode(true);
             let checkbox = document.createElement('input');  
+            item.addEventListener('dragstart', (event) => {               
+    
+                event.dataTransfer.setData('text/html', event.target.nextElementSibling);
+                //console.log("DraggStart: currentTable")
+               
+                currentTable = list.attributes.rel.value
+                currentElementDragged = createElementScreen(field)
+                addOneFieldToList(currentTable,field)
+    
+                //let currentElementDragged = "" //addAllFieldsTable(event)
+    
+            });
             checkbox['type'] = "checkbox"
             checkbox['name'] = field
 
@@ -186,7 +193,67 @@ function createTableList(){
  * Create new element dropped into screen
  */
 
-function createElementScreen(){
+function createElementScreen(field){
+    const root = document.createElement("div")
+    root.classList.add("selectFields","cel-13")
 
+    const label = document.createElement("label")
+    label.innerText = field
+    root.insertAdjacentElement("beforeend",label)
+
+    const input = document.createElement("input")
+    input.setAttribute('name',field)
+    root.insertAdjacentElement("beforeend",input)
+
+    const select = document.createElement("select")
+    const option = document.createElement("option")
+
+    select.setAttribute("name","function")
+    option.setAttribute("value","")
+    option.innerText = "Selecione"
+
+    const option2 = option.cloneNode(true)
+    option2.setAttribute("value","max")
+    option2.innerText = "Maximo"
+
+    select.insertAdjacentElement("beforeend",option)
+    select.insertAdjacentElement("beforeend",option2)
+
+    root.insertAdjacentElement("beforeend",select)
+
+    return root;
 }
 
+/**
+ * Add drop Listener to Content
+ */
+/**
+ * Configure de content to drop all elements dragged
+ */
+
+const queryEditor = Array.from(document.querySelectorAll('#queryEditor,#filterQueryEditor'));
+console.log("queryEditor:",queryEditor);
+queryEditor.map((qe)=>{
+    qe.addEventListener('dragover', (event) => {
+        event.preventDefault(); // Allow drop
+    });
+
+    qe.addEventListener('dragenter', (event) => {
+        event.preventDefault(); 
+        qe.classList.add('highlight');
+    });
+    qe.addEventListener('dragleave', () => {
+        qe.classList.remove('highlight');
+    });
+
+    qe.addEventListener('drop', (event) => {
+        event.preventDefault(); // Prevent default drop behavior
+        const data = event.dataTransfer.getData('text/html');
+
+        console.log(currentTable)
+        if(currentElementDragged){
+            event.target.appendChild(currentElementDragged);
+        }
+        qe.classList.remove('highlight'); 
+    });
+});
