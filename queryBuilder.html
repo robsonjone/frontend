@@ -8,6 +8,8 @@
     <!-link rel="stylesheet" href="./assets/css/iconfon/icofont.css" -->
     <link rel="stylesheet" href="./styles.css" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="./assets/js/qB.js" defer/>
+    <script src="./assets/js/queryBuilder.js" defer/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
@@ -547,16 +549,10 @@
             let k = Object.keys(query)
             let fieldsSelected = []
             let doubleFields = []
-
-            let tableSelected = [], doubleTables = []
             let q = "select "
             let field = ""
 
             k.map((key,pos) =>{
-                if(tableSelected.includes(k))
-                    doubleTables.push(k)
-                tableSelected.push(k)
-
                 query[key].map((field) =>{
                     if(fieldsSelected.includes(field)) {
                         doubleFields.push(field)
@@ -567,28 +563,19 @@
             })
 
             let allFields = []
-            let allTables = []
-
             k.map((key,pos) =>{
-                
                 query[key].map((field) =>{
                     if(doubleFields.includes(field)) {
-                        field = key+"."+field
+                         field = key+"."+field
                     }
                     allFields.push(field)
                 })
 
-                if(doubleTables.includes(k))
-                    k += "1"
-
-                    allTables.push(k)
             })
-
-
 
             console.log("Double Fields: ",allFields)
             q += allFields.join(",")  
-            q += " from "+allTables.join(',')
+            q += " from "+k.join(',')
 
             console.log(query)
             console.log(q)

@@ -271,6 +271,10 @@
     padding:1rem;
 }
 
+.queryEditor.highlight{
+    border: 2px solid rgb(124, 46, 226);
+}
+
 .queryEditor label{
     display: block;
     text-align: center;
