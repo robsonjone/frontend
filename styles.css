@@ -300,7 +300,16 @@
     margin-bottom:.5rem;
     align-items: center;
 }
-.queryEditor > .selectFields .actions span{
+.queryEditor > .selectFields .actions{
+    display: flex;
+    justify-content: center;
+    cursor:pointer;
+}
+.queryEditor > .selectFields .actions i.close{
+    font-size: 1.25rem!important;
+}
+
+.queryEditor > .selectFields .actions i.close:hover{
     color:#dd3131;
     font-size: 1.25rem!important;
     font-weight: bold;
