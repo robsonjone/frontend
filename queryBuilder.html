@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon.png">
     <title>Report</title>
-    <!-link rel="stylesheet" href="./assets/css/iconfon/icofont.css" -->
+    <!--link rel="stylesheet" href="./assets/css/iconfon/icofont.css" -->
     <link rel="stylesheet" href="./styles.css" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="./assets/js/qB.js" defer/>
@@ -14,76 +14,11 @@
 
 </head>
 <body>
-    <div class="panel" ">
+    <div class="panel">
         <div class="panel-title">
             Profile
         </div>
         <div class="panel-body row flex-center">
-            <div class="tools">
-                <div class="pallete">
-                    <div class="pallete-title">
-                        <i class="material-symbols-outlined">database_search</i>
-                        &nbsp;queryEditor
-                    </div>        
-                    <!--div class="fieldFilter">Filtro</div-->
-
-                    <!--ul class="datalist">
-                        <li class="table">Table 1</li>
-                        <li class="itemsDataList"><input type = "checkbox" name="id" /> Field</li>
-                    </ul>
-                    
-                    <ul class="datalist">
-                        <li class="table">Table 2</li>
-                        <li class="itemsDataList"><input type = "checkbox" name="id" /> Field</li>
-                    </ul>
-
-                    <ul class="datalist">
-                       
-                        <li class="table" rel = "pessoa">Pessoa
-                            <div class="itemsDataList">
-                                <div class="row filter fieldFilter">
-                                    <div class="cel-6">
-                                        id
-                                    </div>
-                                    <div class="cel-6">
-                                        <select>
-                                            <option value="=">Igual</option>
-                                            <option value="!=">Diferente</option>
-                                            <option value=">">Maior</option>
-                                            <option value=">=">Maior ou Igual</option>
-                                            <option value="<">Menor</option>
-                                            <option value="<=">Menor ou Igual</option>
-                                            <option value="like">Contém</option>
-                                        </select>
-                                    </div>
-                                    <div class="cel-6"><input type="text"/></div>
-                                </div>
-
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="id" />Id</div>
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="nome" />nome</div>
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="data_nasc" />data_nasc</div>
-                                <div class="addField">
-                                    <span class="material-symbols-outlined">move_item</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="table" rel = "endereco">
-                            Endereco
-                            <div class="itemsDataList">
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="id" />Id</div>
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="Rua" />Rua</div>
-                                <div class="fieldTable" draggable = true ><input type = "checkbox" name="CEP" />CEP</div>
-                                <div class="addField">
-                                    <span class="material-symbols-outlined">move_item</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="table">Cidade</li>
-                        <li class="table">País</li>
-                    </ul-->
-                </div>
-            </div>
-        
             <div class="content">
                 <nav class="navtab">
                     <nav class="nav_items">
@@ -93,29 +28,39 @@
                 </nav>
                 <div class="nav_content">
                     <div class="nav_content_item show" id = "tabQueryEditor">
-                        <div id="queryEditor" class="queryEditor">
-                            <div class="row selectFields cel-13">
-                                <label class="cel-6">Name</label>
-                                <label class="cel-8">Alias</label>
-                                <label class="cel-8">Function</label>                        
-                                <label class="cel-2">Actions</label>                        
+                        <div class="tools">
+                            <div class="pallete">
+                                <div class="pallete-title">
+                                    <i class="material-symbols-outlined">database_search</i>
+                                    &nbsp;queryEditor
+                                </div>                                     
                             </div>
                         </div>
-                        <div class="row" style="justify-content: space-between;padding:1rem 0;">
-                            <div class="btn primary">
-                                <span class="material-symbols-outlined" onclick="createSQL()">slideshow</span>
-                                <span class="material-symbols-outlined" onclick="createQUERY()">slideshow</span>
+                        <div class="flex flex-column" style="flex:1">
+                            <div id="queryEditor" class="queryEditor">
+                                <div class="row selectFields cel-13">
+                                    <label class="cel-6">Name</label>
+                                    <label class="cel-8">Alias</label>
+                                    <label class="cel-8">Function</label>                        
+                                    <label class="cel-2">Actions</label>                        
+                                </div>
                             </div>
-                            <i class="material-symbols-outlined copyToClipboard">content_copy</i>
+                            <div class="row" style="justify-content: flex-end;padding:1rem;">
+                                <!--div class="btn">
+                                    <span class="material-symbols-outlined" onclick="createSQL()">slideshow</span>
+                                    <i class="material-symbols-outlined copyToClipboard">content_copy</i>
+                                </div-->
+                                <i class="material-symbols-outlined" onclick="createQUERY()" style="cursor:pointer">slideshow</i>
+                            </div>
+                            
+                            <div class="scriptOutput"></div>
                         </div>
-                        
-                        <div class="scriptOutput"></div>
                     </div>
                     <div class="nav_content_item " id = "tabFilterQueryEditor">
-                        <div id="filterQueryEditor" class="queryEditor">
-                            <div class="row selectFields cel-24" style="border:1px solid #ccc">
-                                <label class="cel-4">pessoa.nome</label>
-                                <div class="cel-4">
+                            <div id="filterQueryEditor" class="queryEditor">
+                                <div class="row selectFields cel-20" style="border:1px solid #ccc">
+                                    <label class="cel-4">pessoa.nome</label>
+
                                     <select name="comparador" id="">
                                         <option value="">Selecione...</option>
                                         <option value="=">Igual</option>
@@ -128,53 +73,20 @@
                                         <option value="like {}%">Termina com</option>
                                         <option value="like%{}%">Contém</option>
                                     </select>
-                                </div>
-                                <div class="cel-6flex-center">
                                     <input class="valor" name = " valor" >
-                                </div>
-                                <div class="cel-4">
+                                
                                     <select name="operador" id="">
                                         <option value="">Selecione...</option>
                                         <option value="and ">E</option>
                                         <option value="or ">ou</option>
                                     </select>
-                                </div>
-                                <div class="cel-2 actions">
+                                
                                     <span class="material-symbols-outlined">close_small</span>
+                                    
                                 </div>
                             </div>
-                            <div class="row selectFields cel-24" style="border:1px solid #ccc">
-                                <label class="cel-4">pessoa.dtnascto</label>
-                                <div class="cel-4">
-                                    <select name="comparador" id="">
-                                        <option value="">Selecione...</option>
-                                        <option value="=">Igual</option>
-                                        <option value="<>">Diferente</option>
-                                        <option value=">">Maior que</option>
-                                        <option value=">=">Maior ou Igual</option>
-                                        <option value="<">Menor que</option>
-                                        <option value="<=">Menor ou Igual</option>
-                                        <option value="like %{}">Começa com</option>
-                                        <option value="like {}%">Termina com</option>
-                                        <option value="like%{}%">Contém</option>
-                                    </select>
-                                </div>
-                                <div class="cel-6flex-center">
-                                    <input class="valor" name = " valor" >
-                                </div>
-                                <div class="cel-4">
-                                    <select name="operador" id="">
-                                        <option value="">Selecione...</option>
-                                        <option value="and ">E</option>
-                                        <option value="or ">ou</option>
-                                    </select>
-                                </div>
-                                <div class="cel-2 actions">
-                                    <span class="material-symbols-outlined">close_small</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                </div>
                 </div>
                 
             </div>

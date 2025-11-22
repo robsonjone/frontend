@@ -28,7 +28,7 @@ const allTables={
         email:"varchar",
         id_usuario:"number",
         pk:"id",
-        fk:[{table:"pessoa",field:"id_pessoa"}]
+        fk:[]//[{table:"pessoa",field:"id_pessoa"}]
     }
 }
 
@@ -59,7 +59,7 @@ function addOneFieldToList(table, field){
 
     queryToBuild[table] = [...queryToBuild[table], field]
 
-    console.log("Query to Build: ",queryToBuild)
+    //console.log("Query to Build: ",queryToBuild)
 
 }
 
@@ -217,7 +217,8 @@ function createTableList(){
 
 function createElementScreen(field){
     const root = document.createElement("div")
-    root.classList.add("selectFields","cel-13")
+    root.classList.add("selectFields","cel-13" )
+    root.attributes['rel']  = currentTable
 
     const label = document.createElement("label")
     label.innerText = field
@@ -225,6 +226,15 @@ function createElementScreen(field){
 
     const input = document.createElement("input")
     input.setAttribute('name',field)
+    input.addEventListener('change',(e) =>{
+        let name = input.name;
+        let value = input.value;
+        let table = input.parentNode.attributes.rel;
+
+        let pos = queryToBuild[table].indexOf(name)
+        queryToBuild[table][pos] = name+" as "+ value
+
+    })
     root.insertAdjacentElement("beforeend",input)
 
     const select = document.createElement("select")
@@ -304,8 +314,8 @@ queryEditor.map((qe)=>{
             event.target.appendChild(currentElementDragged);
         }
 
-        console.log(currentTable)
-        console.log(currentElementDragged)
+        //console.log(currentTable)
+        //console.log(currentElementDragged)
         qe.classList.remove('highlight'); 
     });
 });
@@ -325,6 +335,16 @@ addfield.map((add)=>{
     })
 })
 
+/**
+ * Add event change to alias input fields
+ */
+
+const aliasInputFields = Array.from(document.querySelectorAll(".selectedFields input"))
+aliasInputFields.map((input) =>{
+    input.addEventListener
+})
+
+
 /*
     Build query from Object
 */
@@ -333,19 +353,33 @@ function createQUERY(){
     let k = Object.keys(queryToBuild)
     let fieldsSelected = []
     let doubleFields = []
+    let allFieldsSelectedTable = []
+    let fkFields = []
     let q = "select "
     let field = ""
 
+    k.map((key) =>{
+        Object.keys(allTables[key]).map((f) =>  {
+            if(f != "pk" && f != "fk")
+                allFieldsSelectedTable = [...allFieldsSelectedTable, f]
+        }
+    )
+    console.log("AllFields:",allFieldsSelectedTable)
+
+    })
     k.map((key,pos) =>{
-        console.log(queryToBuild[key])
+
+        //console.log(queryToBuild[key])
         queryToBuild[key].map((field) =>{
-            if(fieldsSelected.includes(field)) {
+            //console.log("QUerytoBuild: ",field)
+            if(allFieldsSelectedTable.includes(field)) {
                 doubleFields.push(field)
             }
             fieldsSelected.push(field)
         })
 
     })
+    doubleFields = allFieldsSelectedTable.filter((field, index) => allFieldsSelectedTable.indexOf(field) !== index)
 
     let allFields = []
     k.map((key,pos) =>{
@@ -358,12 +392,42 @@ function createQUERY(){
 
     })
 
-    console.log("Double Fields: ",allFields)
+    let hasFks = false
+    k.map((key,pos) =>{
+        let foreignKeys  = allTables[key].fk;
+        console.log("FK:",allTables[key])
+
+        foreignKeys.map((foreignKey,index)=>{
+            console.log("Index FK: ", "Table:",index ," ",allTables[key].fk, "FK:",index," ",foreignKeys.length," Fk Table:",foreignKey.table);
+            let filter = ""
+            if(foreignKey && k.length > 1){
+                if(k.includes(foreignKey.table) )
+                    fkFields.push(foreignKey['table']+".id = "+key+"."+foreignKey.field+" \n");
+            }
+            if(hasFks && pos < allTables[key].fk.length){
+                if(index < foreignKeys.length )
+                    filter = " and "+filter
+            }
+            
+           // where += filter;
+            hasFks = true;
+
+        })
+        console.log("FK:",allTables[key].fk)
+    })
+
+    console.log("Double Fields: ",doubleFields)
     q += allFields.join(",")  
     q += " from "+k.join(',')
+    if(k.length > 1)
+        q += "\n where "+fkFields.join(' and ')
 
     console.log(queryToBuild)
     console.log(q)
+
+    const output = document.querySelector(".scriptOutput");
+    output.innerHTML = `<pre>${q}</pre>`;
+
 }
 
 /*
